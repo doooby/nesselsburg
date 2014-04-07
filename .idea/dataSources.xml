@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="3356243999">
+    <data-source source="LOCAL" name="Rails nesselsburg: development" uuid="14a8fb38-6d2e-4f8d-a7a0-cd764cea9147">
+      <driver-ref>postgresql</driver-ref>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql:nesselsburg_development</jdbc-url>
+      <libraries />
+    </data-source>
+    <data-source source="LOCAL" name="Rails nesselsburg: test" uuid="e2edd40c-ac3c-43ef-8a4a-c7aeb2122f50">
+      <driver-ref>postgresql</driver-ref>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql:nesselsburg_test</jdbc-url>
+      <libraries />
+    </data-source>
+    <data-source source="LOCAL" name="Rails nesselsburg: default" uuid="5b4a61e0-923c-4595-9160-1bbaee9def25">
+      <driver-ref>postgresql</driver-ref>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql:nburg_dev</jdbc-url>
+      <libraries />
+    </data-source>
+  </component>
+</project>
+
