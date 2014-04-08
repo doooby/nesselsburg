@@ -1,0 +1,8 @@
+<% flash.each do |k,txt| %>
+  <%= k.upcase %> : <%= txt %>
+<% end %>
+
+
+<div style="top: 8em; position: absolute; border-top: 4px groove gray;min-width: 500px;padding: 2em">
+  <%= link_to 'První hra v Three.js : Dáma', Dilna::Naradi.new('dama').path %>
+</div>

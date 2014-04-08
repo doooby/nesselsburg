@@ -1,0 +1,32 @@
+/*
+ *= require_self
+ */
+
+html {
+    width: 100%;
+    background-color: black;
+}
+
+#predhradi_page {
+    width: 860px;
+    height: 645px;
+    margin: 0 auto;
+    position: relative;
+    background-color: white;
+}
+
+#brana_odkazy {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+#brana_odkazy #zed_link {
+    margin: 15px;
+    float: left;
+}
+
+#brana_odkazy #vyveska_link {
+    margin: 15px;
+    float: right;
+}

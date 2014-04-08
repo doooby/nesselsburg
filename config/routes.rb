@@ -53,4 +53,18 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+
+  constraints format: :html do
+    get 'brana' => 'predhradi#brana', as: 'brana'
+    get 'vyveska' => 'predhradi#vyveska', as: 'vyveska'
+    get 'zed' => 'predhradi#zed', as: 'zed'
+  end
+
+  namespace :dilna do
+    get 'tabule'
+    match 'prostranstvi', via: :all
+  end
+
+  root 'predhradi#brana'
+
 end
