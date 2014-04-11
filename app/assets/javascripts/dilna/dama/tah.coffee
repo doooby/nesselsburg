@@ -11,4 +11,6 @@ class DAMA.Tah
         @mesh.matrixAutoUpdate = false
         @mesh.updateMatrix()
         @mesh
+    text: ->
+        'z:'+@z+' na:'+@na+' zere: '+@zere
 

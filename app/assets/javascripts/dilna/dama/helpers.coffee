@@ -26,10 +26,3 @@ DAMA.krokSmerem = (p, smer) ->
     if smer<2 then c[0]+=1 else c[0]-=1
     krok = DAMA.poziceByCoords(c[0], c[1])
     krok
-DAMA.diagonalaSmerem = (prvni_krok, smer) ->
-    ret = [prvni_krok]
-    k = prvni_krok
-    while k!=-1
-        k = DAMA.krokSmerem(k, smer)
-        ret.push(k) unless k==-1
-    ret
