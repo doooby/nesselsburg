@@ -1,0 +1,15 @@
+<%= content_for :naradi, javascript_include_tag('dilna/posun_blok') %>
+<style>
+  #container {
+    width: 600px;
+    height: 400px;
+    float: left
+  }
+</style>
+<div id="container"></div>
+<div>
+  Podlaha: <%= select_tag 'podlaha', options_for_select([['prázdno',0],['hlína',1]]) %>
+  <br/>Blok: <%= select_tag 'blok', options_for_select([]) %>
+</div>
+<br/>
+<div id="info"></div>

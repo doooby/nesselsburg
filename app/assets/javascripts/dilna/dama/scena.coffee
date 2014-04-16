@@ -1,4 +1,4 @@
-J3O.initScene = (scene) ->
+J3O.initScene = (renderer, scene) ->
     camera = new THREE.PerspectiveCamera(45,
         J3O.container.clientWidth/J3O.container.clientHeight,
         1, 100)

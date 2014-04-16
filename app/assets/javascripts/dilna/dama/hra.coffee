@@ -41,7 +41,14 @@ class DAMA.Pocitac extends DAMA.Hrac
         mozne
     jed: ->
         mozne = @vsechnyMozneTahy()
-        tah = mozne[Math.floor(Math.random()*mozne.length)]
+        mozne_zrani = []
+        for tah in mozne
+            mozne_zrani.push(tah) if tah.zere.length>0
+        tah = null
+        if mozne_zrani.length>0
+            tah = mozne_zrani[Math.floor(Math.random()*mozne_zrani.length)]
+        else
+            tah = mozne[Math.floor(Math.random()*mozne.length)]
         DAMA.hra.deska.scene.add(tah.createTahMesh())
         J3O.draw()
         setTimeout( =>

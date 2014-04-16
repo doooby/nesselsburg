@@ -11,6 +11,7 @@ class DAMA.Kamen
         @mesh = new THREE.Mesh(geom, mater)
         @mesh.matrixAutoUpdate = false
         @mesh.rotation.x = 1.57
+        @mesh.castShadow = true
     presunNa: (pozice) ->
         @mesh.position = DAMA.worldPosition(pozice)
         @mesh.position.z = 0.5

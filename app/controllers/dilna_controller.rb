@@ -8,7 +8,7 @@ class DilnaController < ApplicationController
   def prostranstvi
     n = Dilna::Naradi.from_params params
     view = case n.cinnost
-             when 'dama'
+             when 'dama', 'posun_blok'
                n.cinnost
              else
                flash[:alert] = 'pokud se chceš flákat, tak proboha přestan čumět do pc'

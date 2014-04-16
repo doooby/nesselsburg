@@ -11,7 +11,7 @@ J3O.prepareDevice = (clear_color) ->
     J3O.container.appendChild(J3O.rr.domElement)
 
     J3O.scene = new THREE.Scene()
-    J3O.initScene(J3O.scene)
+    J3O.initScene(J3O.rr, J3O.scene)
     throw 'J3O.camera must be defined within J3O.initScene' if J3O.scene==undefined
     J3O.initGeometry(J3O.scene)
     J3O.initUI(J3O.scene)

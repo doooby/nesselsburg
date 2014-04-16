@@ -1,4 +1,5 @@
 //= require_self
+//= require j3o.1
 //= require_directory
 
 var DAMA = {};
