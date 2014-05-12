@@ -26,7 +26,11 @@ J3O.prepareDevice = (clear_color) ->
         J3O.onResize if isFunction(J3O.onResize)
     )
 
-J3O.draw = (do_loop=false) ->
+J3O.draw = (do_loop=false, load_signal=false) ->
+    if load_signal
+        return if J3O.first_draw
+    else
+        J3O.first_draw = false
     J3O.onFrameMove()
     J3O.rr.render(J3O.scene, J3O.camera)
     requestAnimationFrame(-> J3O.draw(true)) if do_loop

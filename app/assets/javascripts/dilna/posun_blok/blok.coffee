@@ -9,14 +9,13 @@ class PB.Blok
         @mesh.updateMatrix()
     znic: ->
         J3O.scene.remove(@mesh)
-        J3O.rr.deallocateObject(@mesh)
     typ: -> 0
     @vytvorTyp: (typ) ->
         switch typ
             when 0 then null
             when 1 then new PB.BlokHrac()
             when 2 then new PB.BlokBedna()
-            else throw 'neznámý typ bloku'
+            else throw 'neznámý typ bloku '+typ
     jdePosunout: (blok, sila) ->
         sila>0
 
@@ -32,7 +31,13 @@ class PB.BlokHrac extends  PB.Blok
 class PB.BlokBedna extends PB.Blok
     vytvorMesh: ->
         geom = new THREE.CubeGeometry(PB.SIRKA_BLOKU, PB.SIRKA_BLOKU, PB.SIRKA_BLOKU)
-        mater = new THREE.MeshBasicMaterial({color: 0xAF690C})
+        txt = PB.BlokBedna.vem_texturu()
+        mater = new THREE.MeshBasicMaterial({map: txt, side: THREE.DoubleSide})
+        #mater = new THREE.MeshBasicMaterial({color: 0xAF690C})
         @mesh = new THREE.Mesh(geom, mater)
         @mesh.matrixAutoUpdate = false
     typ: -> 2
+    @vem_texturu: ->
+        return PB.BlokBedna.TEXTURA unless PB.BlokBedna.TEXTURA==undefined
+        PB.BlokBedna.TEXTURA = new THREE.ImageUtils.loadTexture(PB.image_paths.bedna,
+            new THREE.UVMapping(), -> J3O.draw(false, true))

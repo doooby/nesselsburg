@@ -5,15 +5,18 @@ J3O.initScene = (rr, s) ->
     J3O.camera = camera
 
 J3O.initGeometry = (scene) ->
-    pozice = []
-    sirka = 16
-    vyska = 8
-    for i in [0..sirka*vyska-1]
-        p = new PB.Pozice(i)
-        p.blok = PB.Blok.vytvorTyp(1) if i==3
-        p.blok = PB.Blok.vytvorTyp(2) if i==23
-        pozice[i] = p
-    PB.svet = new PB.Svet(sirka, pozice, true)
+    if false
+        PB.svet = PB.Svet.vytvorZeZaznamu('sirka=16|pozice=0,2;0,2;0,2;0,2;0,2;0,2;0,2;0,2;0,2;0,2;0,2;0,2;0,2;0,2;0,2;0,2;0,2;0;0;0;0;0;0;0,2;0;0;0,2;0,2;0;0,2;0;0,2;0,2;0;0;0;0;0,2;0;0;0;0,2;0;0;0;0,2;0;0,2;0,2;0;0;0,2;0;0;0;0;0;0;0;0;0;0;0;0,2;0,2;0;0;0;0;0;0;0,2;0;0;0,2;0,2;0,2;0,2;0,2;0;0,2;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0,2;0;0;0,2;0;0;0;0,2;0;0;0;0;0;0;0;0,2;0,2;0,2;0,2;0,2;0,2;0,2;0,2;0,2;0,2;0,2;0,2;0,2;0,2;0,2;0,2;0,2', true)
+    else
+        pozice = []
+        sirka = 16
+        vyska = 8
+        for i in [0..sirka*vyska-1]
+            p = new PB.Pozice(i)
+            p.blok = PB.Blok.vytvorTyp(1) if i==3
+            p.blok = PB.Blok.vytvorTyp(2) if i==23
+            pozice[i] = p
+        PB.svet = new PB.Svet(sirka, pozice, true)
 
 J3O.initUI = (scene) ->
     rot_point = (Math.PI/180)*3
@@ -23,11 +26,27 @@ J3O.initUI = (scene) ->
     J3O.container.addEventListener('mousedown', (e) ->
         p = PB.svet.getPoziceKliknuti(e)
         return if p==null
-        p.podlaha.znic()
-        typ = parseInt(document.getElementById('podlaha').value)
-        p.podlaha = new PB.Podlaha.vytvorTyp(typ)
-        p.podlaha.vytvorMesh(p.svet.verticesPodlahy(p.index))
-        scene.add(p.podlaha.mesh)
+        akce = null
+        for rb in document.getElementsByName('akce')
+            akce = rb.value if rb.checked
+        switch akce
+            when 'podlaha'
+                p.podlaha.znic()
+                typ = parseInt(document.getElementById('podlaha').value)
+                p.podlaha = new PB.Podlaha.vytvorTyp(typ)
+                p.podlaha.vytvorMesh(p.svet.verticesPodlahy(p.index))
+                scene.add(p.podlaha.mesh)
+            when 'blok'
+                unless p.blok==null
+                    p.blok.znic()
+                    p.blok = null
+                typ = parseInt(document.getElementById('blok').value)
+                unless typ==0
+                    p.blok = PB.Blok.vytvorTyp(typ)
+                    p.blok.vytvorMesh()
+                    p.blok.zmenPozici(p, p.svet)
+                    J3O.scene.add(p.blok.mesh)
+            else return
         J3O.draw()
     )
 

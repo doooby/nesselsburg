@@ -36,7 +36,6 @@ class PB.Svet
         for p in @pozice
             @pozice_hrace.push(p) if p.blok!=null && p.blok.typ()==1
     @vytvorZeZaznamu: (text, promenny) ->
-        #sirka=6|pozice=0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0
         args = {}
         for a in text.split('|')
             split = a.split('=')

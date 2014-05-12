@@ -20,7 +20,7 @@ class PB.Podlaha
         switch typ
             when 0 then new PB.Podlaha()
             when 1 then new PB.PodlahaHlina()
-            else throw 'neznámý typ podlahy'
+            else throw 'neznámý typ podlahy '+typ
     jdeVsunout: (blok, sila) ->
         true
     interakceSBlokem: (pozice) ->

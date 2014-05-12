@@ -8,8 +8,11 @@
 </style>
 <div id="container"></div>
 <div>
-  Podlaha: <%= select_tag 'podlaha', options_for_select([['prázdno',0],['hlína',1]]) %>
-  <br/>Blok: <%= select_tag 'blok', options_for_select([]) %>
+  <%= radio_button_tag 'akce', 'nic', true %> Nic
+  <br/><%= radio_button_tag 'akce', 'podlaha' %> Podlaha:
+    <%= select_tag 'podlaha', options_for_select([['prázdno',0],['hlína',1]]) %>
+  <br/><%= radio_button_tag 'akce', 'blok' %> Blok:
+    <%= select_tag 'blok', options_for_select([['prázdno',0],['bedna',2]]) %>
 </div>
 <br/>
 <div id="info"></div>
