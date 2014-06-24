@@ -1,4 +1,4 @@
-<%= content_for :naradi, javascript_include_tag('dilna/posun_blok') %>
+<% attach_threejs { ['dilna/posun_blok'] } %>
 <style>
   #container {
     width: 600px;
@@ -10,9 +10,9 @@
 <div>
   <%= radio_button_tag 'akce', 'nic', true %> Nic
   <br/><%= radio_button_tag 'akce', 'podlaha' %> Podlaha:
-    <%= select_tag 'podlaha', options_for_select([['prázdno',0],['hlína',1]]) %>
+    <%= select_tag 'podlaha', options_for_select([['prázdno',0],['hlína',1],['cíl',2]]) %>
   <br/><%= radio_button_tag 'akce', 'blok' %> Blok:
-    <%= select_tag 'blok', options_for_select([['prázdno',0],['bedna',2]]) %>
+    <%= select_tag 'blok', options_for_select([['prázdno',0],['bedna',2],['kámen',3]]) %>
 </div>
 <br/>
 <div id="info"></div>

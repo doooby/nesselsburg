@@ -12,8 +12,7 @@ window.onload = function(){
     PB.SMER_DOLU = 2;
     PB.SMER_VLEVO = 3;
 
-    PB.image_paths = {};
-    PB.image_paths.bedna = 'http://localhost:3000<%= asset_url 'games/basics/bedna.bmp' %>';
+    PB.tholder = new J3O.TextureHolder({'prefix':'games/posun_blok','suffix':'.bmp'});
 
     J3O.prepareDevice();
     J3O.draw();
