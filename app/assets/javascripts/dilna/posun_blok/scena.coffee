@@ -34,7 +34,8 @@ J3O.initUI = (scene) ->
                 p.podlaha.znic()
                 typ = parseInt(document.getElementById('podlaha').value)
                 p.podlaha = new PB.Podlaha.vytvorTyp(typ)
-                p.podlaha.vytvorMesh(p.svet.verticesPodlahy(p.index))
+                p.podlaha.vytvorMesh()
+                p.podlaha.zmenPozici(p)
                 scene.add(p.podlaha.mesh)
             when 'blok'
                 unless p.blok==null
@@ -44,7 +45,7 @@ J3O.initUI = (scene) ->
                 unless typ==0
                     p.blok = PB.Blok.vytvorTyp(typ)
                     p.blok.vytvorMesh()
-                    p.blok.zmenPozici(p, p.svet)
+                    p.blok.zmenPozici(p)
                     J3O.scene.add(p.blok.mesh)
             else return
         J3O.draw()

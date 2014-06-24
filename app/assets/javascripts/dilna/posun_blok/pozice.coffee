@@ -9,9 +9,9 @@ class PB.Pozice
             unless @blok==null
                 kam = @svet.getPozice(@index, smer)
                 return false if kam==null || !kam.vsun(@blok, smer, sila-1)
+            blok.zmenPozici(@)
             @blok = blok
-            @blok.zmenPozici(@)
-            @podlaha.interakceSBlokem(@)
+            @podlaha.interakceSBlokem(blok, @)
             return true
         false
 

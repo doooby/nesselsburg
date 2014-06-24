@@ -19,11 +19,12 @@ class PB.Svet
                 geom.faces.push(new THREE.Face3(i+mem_sirka, i+1, i+1+mem_sirka))
                 p = @pozice[@sirka*y + x]
                 p.svet = @
-                p.podlaha.vytvorMesh(@verticesPodlahy(p.index))
+                p.podlaha.vytvorMesh()
+                p.podlaha.zmenPozici(p)
                 J3O.scene.add(p.podlaha.mesh)
                 unless p.blok==null
                     p.blok.vytvorMesh()
-                    p.blok.zmenPozici(p, @)
+                    p.blok.zmenPozici(p)
                     J3O.scene.add(p.blok.mesh)
 
         @mesh = new THREE.Mesh(geom, mater)
@@ -69,12 +70,6 @@ class PB.Svet
         return if @mesh==undefined
         J3O.scene.remove(@mesh)
         J3O.rr.deallocateObject(@mesh)
-    verticesPodlahy: (index) ->
-        i = index
-        i += Math.floor(index/@sirka)
-        [@vertices[i].clone(), @vertices[i+1].clone(),
-            @vertices[i+@sirka+1].clone(), @vertices[i+2+@sirka].clone()
-        ]
     positionBloku: (index) ->
         i = index
         i += Math.floor(index/@sirka)
