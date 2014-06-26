@@ -1,5 +1,5 @@
 function VypisText(text) {
-    document.getElementById("info").innerText = text;
+    document.getElementById("printout").innerText = text;
 }
 
 function isFunction(arg) {

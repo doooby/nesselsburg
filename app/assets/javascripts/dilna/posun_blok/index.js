@@ -17,4 +17,17 @@ window.onload = function(){
     J3O.prepareDevice();
     J3O.draw();
 
+
+
+    //-----------------
+    var menu_bar = $('#menu_bar');
+    menu_bar.find('input:radio').change(function(){
+        var val = $(this).val();
+        $('.mod_panel').css('display','none');
+        $('#mod_panel_'+val).css('display','block');
+    });
+    $('#mod_panel_hra').find('li').click(function(){
+
+    });
 };
+

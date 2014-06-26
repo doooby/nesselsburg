@@ -3,7 +3,8 @@
 <head>
   <title>Předhradí Nesselsburgu</title>
   <%= csrf_meta_tags %>
-  <%= yield :naradi %>
+  <%= javascript_include_tag 'application' %>
+  <%= content_for :naradi %>
 </head>
 <body>
 <%= yield %>

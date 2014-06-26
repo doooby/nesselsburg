@@ -1,6 +1,6 @@
 J3O.prepareDevice = (clear_color) ->
-    J3O.container = document.getElementById('container')
-    throw 'Container with id="container" is not present' if J3O.container==null
+    J3O.container = document.getElementById('game_container')
+    throw 'Container with id="game_container" is not present' if J3O.container==null
 
     throw 'J3O.initScene missing' unless isFunction(J3O.initScene)
     throw 'J3O.initGeometry missing' unless isFunction(J3O.initGeometry)
