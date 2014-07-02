@@ -17,11 +17,6 @@ module SocketBackend
           @main_chamber.on_client_enter client
         end
 
-        ws.on :message do |event|
-          # p [:message, event.data]
-          ws.send event.data
-        end
-
         ws.on :close do |event|
           # p [:close, ws.object_id, event.code, event.reason]
           @main_chamber.on_client_leave client
@@ -35,8 +30,8 @@ module SocketBackend
       end
     end
 
-    def conout(text, konzole_id=2)
-      %x(echo "#{text}" > /dev/pts/#{konzole_id})
+    def on_internal_msg(client, msg)
+      puts "internal msg from #{client.id}: #{msg}"
     end
 
   end
