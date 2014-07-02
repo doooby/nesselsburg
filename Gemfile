@@ -5,7 +5,7 @@ gem 'rails', '~> 4.1.0'
 
 
 gem 'pg'
-gem 'mysql2'
+# gem 'mysql2'
 
 
 gem 'puma'

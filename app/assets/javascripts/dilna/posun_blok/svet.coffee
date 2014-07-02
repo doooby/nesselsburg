@@ -69,6 +69,9 @@ class PB.Svet
     znic: ->
         return if @mesh==undefined
         J3O.scene.remove(@mesh)
+        for p in @pozice
+            p.blok.znic if p.blok
+            p.podlaha.znic if p.podlaha
         J3O.rr.deallocateObject(@mesh)
     positionBloku: (index) ->
         i = index

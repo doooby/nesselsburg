@@ -13,7 +13,8 @@ module DilnaHelper
   def self_chat_okno(who)
     content_tag :div, class: 'self_chat', data: {who: who} do
       inner = content_tag :div, nil, class: 'vypis'
-      inner += text_area_tag "#{who}_zapis", nil, class: 'zapis', size: '50x3'
+      inner += text_area_tag "#{who}_zapis", nil, class: 'zapis', size: '30x3'
+      inner += select_tag 'to_whom', options_for_select([['všichni', 'a'],['server', 's']])
     end
   end
 end

@@ -4,24 +4,10 @@ J3O.initScene = (rr, s) ->
         1, 100)
     J3O.camera = camera
 
-J3O.initGeometry = (scene) ->
-    if false
-        PB.svet = PB.Svet.vytvorZeZaznamu('sirka=16|pozice=0,2;0,2;0,2;0,2;0,2;0,2;0,2;0,2;0,2;0,2;0,2;0,2;0,2;0,2;0,2;0,2;0,2;0;0;0;0;0;0;0,2;0;0;0,2;0,2;0;0,2;0;0,2;0,2;0;0;0;0;0,2;0;0;0;0,2;0;0;0;0,2;0;0,2;0,2;0;0;0,2;0;0;0;0;0;0;0;0;0;0;0;0,2;0,2;0;0;0;0;0;0;0,2;0;0;0,2;0,2;0,2;0,2;0,2;0;0,2;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0,2;0;0;0,2;0;0;0;0,2;0;0;0;0;0;0;0;0,2;0,2;0,2;0,2;0,2;0,2;0,2;0,2;0,2;0,2;0,2;0,2;0,2;0,2;0,2;0,2;0,2', true)
-    else
-        pozice = []
-        sirka = 16
-        vyska = 8
-        for i in [0..sirka*vyska-1]
-            p = new PB.Pozice(i)
-            p.blok = PB.Blok.vytvorTyp(1) if i==3
-            p.blok = PB.Blok.vytvorTyp(2) if i==23
-            pozice[i] = p
-        PB.svet = new PB.Svet(sirka, pozice, true)
+#J3O.initGeometry = (scene) ->
 
 J3O.initUI = (scene) ->
     rot_point = (Math.PI/180)*3
-
-
 
     J3O.container.addEventListener('mousedown', (e) ->
         p = PB.svet.getPoziceKliknuti(e)
@@ -83,6 +69,7 @@ J3O.initUI = (scene) ->
     )
 
 PB.posunHrace = (smer) ->
+    return unless PB.svet
     for ph, i in PB.svet.pozice_hrace
         p = PB.svet.getPozice(ph.index, smer)
         continue if p==null

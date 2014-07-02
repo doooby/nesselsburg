@@ -16,7 +16,7 @@ class S3ocket.Client
                         @onAuthSuccess()
             else if @id
                 msg = data[@id]
-                @onMessage(msg) if msg
+                @onMessage(msg, data['from'], data['for']) if msg
         @waitForConnection(on_ready_clb)
     waitForConnection: (clb) ->
         if @ws.readyState==1
@@ -30,7 +30,7 @@ class S3ocket.Client
         @ws.send(JSON.stringify({iam:auth_hash})) if @ws.readyState==1 && auth_hash
     onAuthSuccess: ->
     onAuthFailed: ->
-    onMessage: (msg) ->
+    onMessage: (msg, from) ->
     send: (data, to) ->
         return unless @id
         hash = {to: to}
