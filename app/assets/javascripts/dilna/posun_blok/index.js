@@ -4,7 +4,7 @@
 
 var PB = {};
 
-window.onload = function(){
+$( document ).ready(function(){
     PB.SIRKA_BLOKU = 4;
 
     PB.SMER_NAHORU = 0;
@@ -29,5 +29,5 @@ window.onload = function(){
     $('#mod_panel_hra').find('li').click(function(){
 
     });
-};
+});
 

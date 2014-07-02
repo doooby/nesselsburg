@@ -4,7 +4,7 @@
 
 var DAMA = {};
 
-window.onload = function(){
+$( document ).ready(function(){
 
     DAMA.sirka_ctverce = 6.3;
     var puldesky = DAMA.sirka_ctverce*4;
@@ -14,4 +14,4 @@ window.onload = function(){
 
     J3O.prepareDevice();
     J3O.draw();
-};
+});
