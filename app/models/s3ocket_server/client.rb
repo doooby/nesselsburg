@@ -1,4 +1,4 @@
-module SocketBackend
+module S3ocketServer
   class Client
     attr_reader :id, :socket, :room
 
@@ -8,19 +8,25 @@ module SocketBackend
 
       @socket.on :message do |event|
         data = JSON.parse event.data
+        puts "(#{id}) #{data}"
         iam = data['iam']
         if iam
           @user_id = iam['login']
           msg_you_are @id
         else
           if authorized?
-            msg = data[@id.to_s]
-            on_msg msg, data['to'] if msg
+            on_msg data['to'], data['msg'], data['task']
           else
             msg_you_are 'who?'
           end
         end
       end
+    end
+
+    def set_id(room, id)
+      @room = room
+      @id = id
+      msg_you_are id if authorized?
     end
 
     def ==(other)
@@ -35,33 +41,27 @@ module SocketBackend
       !!@user_id
     end
 
-    def set_id(room, id)
-      @room = room
-      @id = id
-      msg_you_are id if authorized?
+    def user
+      @user_id
     end
 
-    def on_msg(msg, to)
+    def on_msg(to, msg, task)
       case to
         when 'a'
-          @room.send_to_all self, {@id => msg}
-        when 'r'
-          @room.on_internal_msg self, msg
+          @room.send_to_all self, msg, task
         when 's'
-          @room.server.on_internal_msg self, msg
+          @room.on_internal_msg self, msg, task
         else
           arr = to.present? && to.split('|').compact.uniq
           unless arr.empty?
             msg = {@id => msg}
-            arr.each{|to_id| @room.send_to_id to_id, msg}
+            arr.each{|to_id| @room.send_to_id to_id.to_i, self, msg, task}
           end
       end
     end
 
     def msg_you_are(what)
-      json_what = {'yr' => what}.to_json
-      @socket.send json_what
+      @socket.send({yr: what}.to_json)
     end
-
   end
 end

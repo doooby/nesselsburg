@@ -1,25 +1,23 @@
-module SocketBackend
-  class ServerApp
+  class S3ocketServerApp
     KEEPALIVE_TIME = 15 # in s
 
     def initialize(app)
       @app     = app
-      @main_chamber = SocketBackend::Room.new self
+      @main_chamber = S3ocketServer::Room.new self
     end
 
     def call(env)
       if Faye::WebSocket.websocket?(env)
         ws = Faye::WebSocket.new(env, nil, {ping: KEEPALIVE_TIME })
-        client = SocketBackend::Client.new ws
+        client = S3ocketServer::Client.new ws
 
         ws.on :open do |event|
-          # p [:open, ws.object_id]
-          @main_chamber.on_client_enter client
+          @main_chamber.on_client_entered client
         end
 
         ws.on :close do |event|
           # p [:close, ws.object_id, event.code, event.reason]
-          @main_chamber.on_client_leave client
+          @main_chamber.on_client_left client
           ws = nil
           client = nil
         end
@@ -30,9 +28,4 @@ module SocketBackend
       end
     end
 
-    def on_internal_msg(client, msg)
-      puts "internal msg from #{client.id}: #{msg}"
-    end
-
   end
-end
