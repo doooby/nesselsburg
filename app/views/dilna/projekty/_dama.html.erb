@@ -1,11 +1,8 @@
-<% attach_threejs 'games/dama' %>
-<style>
-  #game_container {
-    width: 600px;
-    height: 400px;
-    float: left;
-    margin: 2em;
-  }
-</style>
-<div id="game_container"></div>
+<% vem_naradi('games/dama'){ stylesheet_link_tag 'games/dama' } %>
+<div id="game_dama">
+  <div id="game_menu">
+    toto je menu
+  </div>
+  <div id="game_container"></div>
+</div>
 <div id="printout"></div>

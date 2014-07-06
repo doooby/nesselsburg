@@ -24,6 +24,7 @@ class DAMA.Deska
         @mesh.position = DAMA.offset_desky
         @mesh.matrixAutoUpdate = false
         @mesh.updateMatrix()
+        @scene.add(@mesh)
 
     poziceHrace: (hrac1) ->
         ret = []

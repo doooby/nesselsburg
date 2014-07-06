@@ -1,8 +1,7 @@
 class DAMA.Hra
-    constructor: ->
-        @hrac1 = new DAMA.Hrac(true, 'hráč')
-        @hrac2 = new DAMA.Pocitac(false, 'počítač')
-        @deska = new DAMA.Deska()
+    constructor: (hrac1, hrac2) ->
+        @hrac1 = hrac1
+        @hrac2 = hrac2
         @naTahu = @hrac1
     odehrejTah: (tah, hrac) ->
         return if @naTahu.hrac1!=hrac.hrac1

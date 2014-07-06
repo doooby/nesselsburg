@@ -1,15 +1,4 @@
-J3O.initScene = (renderer, scene) ->
-    camera = new THREE.PerspectiveCamera(45,
-        J3O.container.clientWidth/J3O.container.clientHeight,
-        1, 100)
-    camera.position.y = -45
-    camera.position.z = 40
-    camera.rotation.x = 45 * (Math.PI/180)
-    J3O.camera = camera
 
-    light = new THREE.PointLight(0xFFFFFF)
-    light.position.set(-13, -15, 10)
-    scene.add(light)
 
 
 J3O.initGeometry = (scene) ->
@@ -26,19 +15,6 @@ J3O.initGeometry = (scene) ->
         k = new DAMA.Kamen(i, false)
         d.pozice[i] = k
         scene.add(k.mesh)
-    #--------dámy
-#    for i in []
-#        k = new DAMA.Kamen(i, true)
-#        d.pozice[i] = k
-#        scene.add(k.mesh)
-#        k.zmenNaDamu(scene)
-#        k.presunNa(i)
-#    for i in []
-#        k = new DAMA.Kamen(i, false)
-#        d.pozice[i] = k
-#        scene.add(k.mesh)
-#        k.zmenNaDamu(scene)
-#        k.presunNa(i)
 
 J3O.initUI = (scene) ->
     hrac = DAMA.hra.hrac1

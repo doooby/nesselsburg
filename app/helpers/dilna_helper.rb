@@ -1,7 +1,6 @@
 module DilnaHelper
 
-  def attach_threejs(arr=nil)
-    content_for :naradi, javascript_include_tag('three.js/three.js')
+  def vem_naradi(arr=nil)
     case arr
       when String
         content_for :naradi, javascript_include_tag(arr)
