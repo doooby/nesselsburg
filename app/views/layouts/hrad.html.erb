@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Předhradí Nesselsburgu</title>
+  <%= stylesheet_link_tag 'hrad' %>
+  <%= javascript_include_tag 'hrad' %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<div id="menu">
+  <%= render partial: '/menu' %>
+</div>
+<div id="content">
+  <%= yield %>
+</div>
+</body>
+</html>

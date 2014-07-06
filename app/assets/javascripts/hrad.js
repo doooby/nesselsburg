@@ -1,3 +1,2 @@
-/**
- * Created by doooby on 6.7.14.
- */
+//= require jquery
+//= require jquery_ujs

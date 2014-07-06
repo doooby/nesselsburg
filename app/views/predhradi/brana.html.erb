@@ -1,6 +1,7 @@
-<%= link_to 'přejít k rozestavěné dílně', '/dilna/tabule' %>
+<%= backgroun_image_for '#predhradi_page', 'predhradi/brana_vystavba.bmp' %>
+<%= link_to 'přejít k rozestavěné dílně', dilna_tabule_path, id: 'dilna_link' %>
 
 <div id="brana_odkazy">
-  <%= link_to 'vlevo', zed_path, id: 'zed_link' %>
-  <%= link_to 'vpravo', vyveska_path, id: 'vyveska_link' %>
+  <%= link_to 'Podél zdi', zed_path, id: 'zed_link' %>
+  <%= link_to 'K vývěsce', vyveska_path, id: 'vyveska_link' %>
 </div>

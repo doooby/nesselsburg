@@ -1,13 +1,14 @@
 module DilnaHelper
 
-  def attach_threejs
-    content_for :naradi, javascript_include_tag('/three.js/three.js')
-    if block_given?
-      args = yield
-      if args.is_a? Array
-        args.each{|file| content_for :naradi, javascript_include_tag(file)}
-      end
+  def attach_threejs(arr=nil)
+    content_for :naradi, javascript_include_tag('three.js/three.js')
+    case arr
+      when String
+        content_for :naradi, javascript_include_tag(arr)
+      when Array
+        arr.each{|file| content_for :naradi, javascript_include_tag(file)}
     end
+    content_for :naradi, yield if block_given?
   end
 
   def self_chat_okno(who)

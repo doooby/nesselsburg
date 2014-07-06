@@ -1,10 +1,21 @@
+<%#= backgroun_image_for '#content', image_path %>
+
 <% flash.each do |k,txt| %>
   <%= k.upcase %> : <%= txt %>
 <% end %>
 
 
-<div style="top: 8em; position: absolute; border-top: 4px groove gray;min-width: 500px;padding: 2em">
-  <%= link_to 'První hra v Three.js : Dáma', Dilna::Naradi.new('dama').path %>
-  <br/><%= link_to 'Druhé hraní v Three.js : posun_blok', Dilna::Naradi.new('posun_blok').path %>
-  <br/><%= link_to 'websocket pokus: self_chat', Dilna::Naradi.new('self_chat').path %>
-</div>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+Projekty ve vývoji:
+<br/>
+<%= link_to 'První hra v Three.js : Dáma', dilna_prostranstvi_path(projekt: 'dama') %>
+
+<!--<div style="top: 8em; position: absolute; border-top: 4px groove gray;min-width: 500px;padding: 2em">-->
+
+  <br/><%#= link_to 'Druhé hraní v Three.js : posun_blok', Dilna::Naradi.new('posun_blok').path %>
+  <br/><%#= link_to 'websocket pokus: self_chat', Dilna::Naradi.new('self_chat').path %>
+<!--</div>-->
