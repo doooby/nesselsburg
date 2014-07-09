@@ -1,8 +1,19 @@
 <% vem_naradi('games/dama'){ stylesheet_link_tag 'games/dama' } %>
 <div id="game_dama">
-  <div id="game_menu">
-    toto je menu
+  <div>
+    D Á M A
+    <span id="new_game_menu">
+      <%= radio_button_tag 'game_with', 'pvai' %> s počítačem
+      <%= radio_button_tag 'game_with', 'pvp' %> s připojeným hráčem
+      <%= button_tag 'Nová hra', id: 'btn_new_game' %>
+      <%= button_tag 'Show Time', id: 'btn_new_show_game' %>
+    </span>
   </div>
   <div id="game_container"></div>
+  <br/>
+  <div>
+    <%= text_field_tag 'chat_input', '', size: 65 %>
+    <%= button_tag 'Odešli', id: 'chat_send' %>
+  </div>
 </div>
 <div id="printout"></div>

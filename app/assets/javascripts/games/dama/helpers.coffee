@@ -26,8 +26,3 @@ DAMA.krokSmerem = (p, smer) ->
     if smer<2 then c[0]+=1 else c[0]-=1
     krok = DAMA.poziceByCoords(c[0], c[1])
     krok
-
-DAMA.vypisInfo = (txt, css) ->
-    css = 'logg' unless css
-    div = $('<div class="'+css+'">'+txt+'</div>')
-    $('#printout').append(div)

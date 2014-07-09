@@ -1,6 +1,6 @@
 
 class J3O.Canvas
-    constructor: (opts, init_clb) ->
+    constructor: (opts, init_function) ->
         opts = {} unless opts
 
         conatiner_id = opts['container_id'] || '#game_container'
@@ -17,9 +17,9 @@ class J3O.Canvas
         @rr.setClearColor(clear_color)
 
         @scene = new THREE.Scene()
-        init_clb(@)
+        init_function(@)
         unless @camera
-            throw {err: 'Cannot load J3O.Canvas', msg: 'In constructor\'s init_clb a camera must be created.'}
+            throw {err: 'Cannot load J3O.Canvas', msg: 'In constructor\'s init_function a camera must be created.'}
 
         @container.appendChild(@rr.domElement)
 

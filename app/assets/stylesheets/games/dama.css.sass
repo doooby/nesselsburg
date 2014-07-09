@@ -2,7 +2,8 @@ $sirka: 600px
 $vyska: 400px
 
 #game_dama
-  position: fixed
+  //position: fixed
+  float: left
   margin: 10px
 
 #game_container
@@ -10,10 +11,23 @@ $vyska: 400px
   width: $sirka
   height: $vyska
 
+#new_game_menu
+  float: right
+
 #printout
+  min-height: $vyska + 59px
+  max-height: $vyska + 59px
+  overflow-y: scroll
+  border: 2px gray outset
   margin-left: $sirka + 20px
   padding: 0.5em
   div
     margin: 0.2em
   .err
     color: red
+  .log
+    color: dimgray
+    font-size: 0.7em
+  .chat
+    font-style: italic
+    font-size: 0.8em

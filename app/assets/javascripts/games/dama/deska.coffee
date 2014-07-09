@@ -26,6 +26,20 @@ class DAMA.Deska
         @mesh.updateMatrix()
         @scene.add(@mesh)
 
+    rozlozKameny: ->
+        for i in [0..7]
+            k = new DAMA.Kamen(i, true)
+            @pozice[i] = k
+            @scene.add(k.mesh)
+        for i in [24..31]
+            k = new DAMA.Kamen(i, false)
+            DAMA.deska.pozice[i] = k
+            @scene.add(k.mesh)
+    prycKameny: ->
+        for k in @pozice
+            continue unless k
+            @scene.remove(k.mesh)
+
     poziceHrace: (hrac1) ->
         ret = []
         for i in [0..@pozice.length-1]

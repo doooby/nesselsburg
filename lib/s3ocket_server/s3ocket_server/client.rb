@@ -11,7 +11,7 @@ module S3ocketServer
         puts "(#{id}) #{data}"
         iam = data['iam']
         if iam
-          @user_id = iam['login']
+          @user_id = iam['login'] || 'host'
           msg_you_are @id
         else
           if authorized?
