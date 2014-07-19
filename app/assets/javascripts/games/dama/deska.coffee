@@ -36,9 +36,11 @@ class DAMA.Deska
             DAMA.deska.pozice[i] = k
             @scene.add(k.mesh)
     prycKameny: ->
-        for k in @pozice
-            continue unless k
-            @scene.remove(k.mesh)
+        for i in [0..@pozice.length-1]
+            p = @pozice[i]
+            if p
+                @scene.remove(p.mesh)
+                @pozice[i] = null
 
     poziceHrace: (hrac1) ->
         ret = []
@@ -60,7 +62,7 @@ class DAMA.Deska
     mozneTahyHraceZ: (hrac, z) ->
         return [] if z==-1
         kz = @pozice[z]
-        return [] if kz==null || kz.hrac1!=hrac.hrac1
+        return [] unless kz && kz.hrac1==hrac.hrac1
         @vyhodnotTah(z, hrac, kz.dama)
     zkusSkokKamene: (na, fce) ->
         fce(na) if na!=-1 && @pozice[na]==null

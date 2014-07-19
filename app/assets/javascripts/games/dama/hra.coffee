@@ -3,13 +3,11 @@ class DAMA.Hra
         @hrac1 = hrac1.pridejDoHry(true, @)
         @hrac2 = hrac2.pridejDoHry(false, @)
         @naTahu = @hrac1
+        @konec = false
         @naTahu.jed()
 
-    destroy: ->
-        @konec = true
-
     odehrejTah: (tah, hrac) ->
-        return if @naTahu.hrac1!=hrac.hrac1 || @konec
+        return if @naTahu.hrac1!=hrac.hrac1
         DAMA.deska.provedTah(tah)
         DAMA.platno.redraw()
         if tah.zere.length!=0 && !DAMA.deska.pozice[tah.na].dama
@@ -21,7 +19,10 @@ class DAMA.Hra
         if DAMA.deska.poziceHrace(@naTahu.hrac1).length==0
             duvod = @naTahu.jmeno+' nemá žádné kameny.'
             @ukonci(@druhyHrac(@naTahu), duvod)
-        @naTahu.jed()
+        if @konec
+            @nakonec(@) if @nakonec
+        else
+            @naTahu.jed()
     konecTahu: (hrac) ->
         hrac.po_skoku = false
         @naTahu = @druhyHrac(hrac)
@@ -29,7 +30,7 @@ class DAMA.Hra
     druhyHrac: (hrac) ->
         if hrac.hrac1 then @hrac2 else @hrac1
     ukonci: (hrac, duvod) ->
-        @destroy()
+        @konec = true
         DAMA.vypis('Konec hry, vyhrál '+ hrac.jmeno+'. '+duvod)
 
 class DAMA.Hrac
@@ -39,6 +40,11 @@ class DAMA.Hrac
         @
     jed: ->
 
+class DAMA.LokalniHrac extends DAMA.Hrac
+    pridejDoHry: (@hrac1, @hra) ->
+        @hra.lokalniHrac = @
+        @
+
 class DAMA.Pocitac extends DAMA.Hrac
     vsechnyMozneTahy: ->
         vsechny_pozice = DAMA.deska.poziceHrace(@hrac1)
@@ -47,7 +53,6 @@ class DAMA.Pocitac extends DAMA.Hrac
             mozne = mozne.concat(DAMA.deska.mozneTahyHraceZ(@, pozice))
         mozne
     jed: ->
-        return if @hra.konec
         mozne = @vsechnyMozneTahy()
         mozne_zrani = []
         for tah in mozne
@@ -62,4 +67,4 @@ class DAMA.Pocitac extends DAMA.Hrac
         setTimeout( =>
 #            DAMA.deska.scene.remove(tah.mesh)
             @hra.odehrejTah(tah, @)
-        , 600)
+        , 500)
