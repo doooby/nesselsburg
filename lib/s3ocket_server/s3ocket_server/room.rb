@@ -50,7 +50,7 @@ module S3ocketServer
       end
     end
 
-    def send_to_all(from_c, msg, task=nill)
+    def send_to_all(from_c, msg, task=nil)
       hash = {from: from_c.id, msg: msg}
       hash[:task] = task if task
       json_msg = hash.to_json

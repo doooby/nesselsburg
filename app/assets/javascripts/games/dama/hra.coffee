@@ -1,14 +1,17 @@
 class DAMA.Hra
-    constructor: (hrac1, hrac2) ->
-        @hrac1 = hrac1.pridejDoHry(true, @)
-        @hrac2 = hrac2.pridejDoHry(false, @)
+    constructor: (@hrac1, @hrac2) ->
+        @hrac1.pridejDoHry(@)
+        @hrac2.pridejDoHry(@)
         @naTahu = @hrac1
         @konec = false
         @naTahu.jed()
 
     odehrejTah: (tah, hrac) ->
         return if @naTahu.hrac1!=hrac.hrac1
-        DAMA.deska.provedTah(tah)
+        DAMA.deska.provedTah(tah);
+#        if @vzdalenyHrac && @vzdalenyHrac.hrac1!=hrac.hrac1
+#            tah_hash = {'z': tah.z, 'na': tah.na}
+#            DAMA.socket.sendMsg(@vzdalenyHrac.socket_id, tah_hash, 'pvp');
         DAMA.platno.redraw()
         if tah.zere.length!=0 && !DAMA.deska.pozice[tah.na].dama
             hrac.po_skoku = true
@@ -34,16 +37,20 @@ class DAMA.Hra
         DAMA.vypis('Konec hry, vyhrál '+ hrac.jmeno+'. '+duvod)
 
 class DAMA.Hrac
-    constructor: (@jmeno) ->
+    constructor: (@jmeno, @hrac1) ->
         @po_skoku = false
-    pridejDoHry: (@hrac1, @hra) ->
-        @
+    pridejDoHry: (@hra) ->
     jed: ->
 
 class DAMA.LokalniHrac extends DAMA.Hrac
-    pridejDoHry: (@hrac1, @hra) ->
+    pridejDoHry: (@hra) ->
         @hra.lokalniHrac = @
-        @
+
+class DAMA.VzdalenyHrac extends DAMA.Hrac
+    constructor: (@jmeno, @hrac1, @socket_id) ->
+        @po_skoku = false
+    pridejDoHry: (@hra) ->
+        @hra.vzdalenyHrac = @
 
 class DAMA.Pocitac extends DAMA.Hrac
     vsechnyMozneTahy: ->
@@ -67,4 +74,4 @@ class DAMA.Pocitac extends DAMA.Hrac
         setTimeout( =>
 #            DAMA.deska.scene.remove(tah.mesh)
             @hra.odehrejTah(tah, @)
-        , 500)
+        , 300)

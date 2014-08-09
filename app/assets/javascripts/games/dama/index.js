@@ -7,37 +7,25 @@ DAMA.sirka_ctverce = 6.3;
 var puldesky = DAMA.sirka_ctverce*4;
 DAMA.offset_desky = new THREE.Vector3(-puldesky, -puldesky, 0);
 
-DAMA.novaHra = function(verze) {
-    nazacatek = function () {
-        switch (verze) {
-            case 'aivai':
-                hrac1 = DAMA.Pocitac;
-                hrac2 = DAMA.Pocitac;
-                break;
-            case 'pvai':
-                hrac1 = DAMA.LokalniHrac;
-                hrac2 = DAMA.Pocitac;
-                break;
-            case 'pvp':
-                hrac1 = DAMA.Hrac;
-                hrac2 = DAMA.Hrac;
-                break;
-        }
-        hrac1 = new hrac1('oranžový');
-        hrac2 = new hrac2('modrý');
-
+DAMA.novaHra = function(hrac1, hrac2) {
+    var spusteni_hry = function () {
         DAMA.deska.prycKameny();
         DAMA.deska.rozlozKameny();
         DAMA.platno.redraw();
         DAMA.hra = new DAMA.Hra(hrac1, hrac2);
     };
     if (DAMA.hra && !DAMA.hra.konec) {
-        DAMA.hra.konec = true;
-        DAMA.hra.nakonec = nazacatek;
-        DAMA.hra = null;
+        if (!DAMA.hra.lokalniHrac || DAMA.hra.naTahu.hrac1!==DAMA.hra.lokalniHrac.hrac1) {
+            DAMA.hra.konec = true;
+            DAMA.hra.nakonec = spusteni_hry;
+            DAMA.hra = null;
+            return;
+        }
     }
-    else nazacatek();
+    spusteni_hry();
 };
+
+DAMA.sitova_hra = {hledam: false};
 
 DAMA.vypis = function (txt, css) {
     if (!css) css = 'log';
@@ -99,7 +87,13 @@ $(window).load(function(){
                     }
                     mozne_tahy = [];
                     down_pozice = -1;
-                    if (vybrany) DAMA.hra.odehrejTah(vybrany, DAMA.hra.lokalniHrac);
+                    if (vybrany) {
+                        delete vybrany.mesh;
+                        DAMA.hra.odehrejTah(vybrany, DAMA.hra.lokalniHrac);
+                        if (DAMA.hra.vzdalenyHrac) {
+                            DAMA.socket.sendMsg(DAMA.hra.vzdalenyHrac.socket_id, vybrany, 'pvp');
+                        }
+                    }
                     c.redraw();
                 });
             }
@@ -114,7 +108,7 @@ $(window).load(function(){
             };
             s.onAuthSuccess = function(){
                 DAMA.pripojeno = true;
-                DAMA.vypis('Připojeno na server.');
+                DAMA.vypis('Připojeno na server jako '+s.id+'.');
             };
             s.onAuthFailed = function () {
                 DAMA.pripojeno = false;
@@ -137,7 +131,6 @@ $(window).load(function(){
             s.setTaskCallback('chat', function (od_id, msg) {
                 od = od_id+': ';
                 var div = DAMA.vypis(od+msg, 'chat');
-                console.log(div);
                 document.div = div;
             });
             $('#chat_input').keydown(function (event) {
@@ -150,14 +143,75 @@ $(window).load(function(){
                 sendChatMessage();
             });
 
+            s.setTaskCallback('pvp', function (od_id, msg) {
+                switch (msg) {
+                    case 'hrajem?':
+                        if (DAMA.sitova_hra.hledam) {
+                            DAMA.socket.sendMsg(od_id, 'já', 'pvp');
+                        }
+                        break;
+                    case 'já':
+                        if (DAMA.sitova_hra.hledam) {
+                            DAMA.sitova_hra.hledam = false;
+                            DAMA.sitova_hra.cekam_zahajeni = od_id;
+                            DAMA.socket.sendMsg(od_id, 'hrajem!', 'pvp');
+                        }
+                        break;
+                    case 'hrajem!':
+                        var hrac1, hrac2;
+                        if (DAMA.sitova_hra.hledam) {
+                            DAMA.sitova_hra.hledam = false;
+                            DAMA.sitova_hra.hrac1 = true;
+                            DAMA.socket.sendMsg(od_id, 'hrajem!', 'pvp');
+                            //začíánám
+                            DAMA.vypis('Začíná hra s modrým '+od_id);
+                            hrac1 = new DAMA.LokalniHrac('já', true);
+                            hrac2 = new DAMA.VzdalenyHrac('on', false, od_id);
+                            DAMA.novaHra(hrac1, hrac2);
+                        }
+                        else if (DAMA.sitova_hra.cekam_zahajeni==od_id) {
+                            DAMA.sitova_hra.cekam_zahajeni = null;
+                            DAMA.sitova_hra.hrac1 = false;
+                            //jedu druhý
+                            DAMA.vypis('Začíná hra s oranžovým' +od_id);
+                            hrac1 = new DAMA.VzdalenyHrac('on', true, od_id);
+                            hrac2 = new DAMA.LokalniHrac('já', false);
+                            DAMA.novaHra(hrac1, hrac2);
+                        }
+                        break;
+                    default :
+                        if (DAMA.hra && DAMA.hra.vzdalenyHrac && DAMA.hra.vzdalenyHrac.socket_id==od_id) {
+                            DAMA.hra.odehrejTah(msg, DAMA.hra.vzdalenyHrac);
+                        }
+                        break;
+                }
+            });
+
             $('#btn_new_game').click(function () {
                 if (DAMA.hra && !confirm('Opravdu začít novou hru?')) return;
-                DAMA.novaHra($('input[name="game_with"]:checked').val());
+                switch ($('input[name="game_with"]:checked').val()) {
+                    case 'pvai':
+                        DAMA.sitova_hra = {hledam: false};
+                        DAMA.vypis('Začíná hra s počítačem');
+                        var hrac1 = new DAMA.LokalniHrac('člověk', true);
+                        var hrac2 = new DAMA.Pocitac('počítač', false);
+                        DAMA.novaHra(hrac1, hrac2);
+                        break;
+                    case 'pvp':
+                        DAMA.sitova_hra = {hledam: true};
+                        DAMA.vypis('Hledám protihráče.');
+                        DAMA.socket.sendMsg('a', 'hrajem?', 'pvp');
+                        break;
+                }
             });
 
             $('#btn_new_show_game').click(function () {
                 if (DAMA.hra && !confirm('Opravdu začít novou hru?')) return;
-                DAMA.novaHra('aivai');
+                DAMA.sitova_hra = {hledam: false};
+                DAMA.vypis('Souboj počítačů!');
+                var hrac1 = new DAMA.Pocitac('oranžový', true);
+                var hrac2 = new DAMA.Pocitac('modrý', false);
+                DAMA.novaHra(hrac1, hrac2);
             });
 
             return s;
@@ -172,5 +226,5 @@ $(window).load(function(){
         }
     }
 
-    DAMA.vypis('Beta verze, aktuální stav: Beta #3 - chybí pvp', 'err');
+    DAMA.vypis('Finální Beta verze', 'err');
 });

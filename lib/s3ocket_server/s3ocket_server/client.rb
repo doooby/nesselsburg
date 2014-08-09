@@ -46,6 +46,7 @@ module S3ocketServer
     end
 
     def on_msg(to, msg, task)
+      to = to.to_s
       case to
         when 'a'
           @room.send_to_all self, msg, task
@@ -54,7 +55,6 @@ module S3ocketServer
         else
           arr = to.present? && to.split('|').compact.uniq
           unless arr.empty?
-            msg = {@id => msg}
             arr.each{|to_id| @room.send_to_id to_id.to_i, self, msg, task}
           end
       end

@@ -13,4 +13,5 @@ class DAMA.Tah
         @mesh
     text: ->
         'z:'+@z+' na:'+@na+' zere: '+@zere
-
+    toData: ->
+        {z: @z, na: @na, zere: @zere, zmizi: @zmizi}
