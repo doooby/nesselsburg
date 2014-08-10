@@ -7,20 +7,29 @@ module S3ocketServer
       @user_id = nil
 
       @socket.on :message do |event|
-        data = JSON.parse event.data
-        puts "(#{id}) #{data}"
-        iam = data['iam']
-        if iam
-          @user_id = iam['login'] || 'host'
-          msg_you_are @id
+        data = JSON.parse event.data rescue nil
+        next unless data
+        Rails.logger.debug "SOCKET: (#{id}) #{data}"
+        on_data data
+      end
+    end
+
+    def on_data(data)
+      iam = data['iam']
+      if iam
+        @user_id = iam['login'] || 'host'
+        msg_you_are @id
+      else
+        if authorized?
+          on_msg data['to'], data['msg'], data['task']
         else
-          if authorized?
-            on_msg data['to'], data['msg'], data['task']
-          else
-            msg_you_are 'who?'
-          end
+          msg_you_are 'who?'
         end
       end
+    rescue  => e
+      el = Nesselsburg::ExceptionLog.from_exception e
+      el.other_info = {data: data}
+      el.save!
     end
 
     def set_id(room, id)

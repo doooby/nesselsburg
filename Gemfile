@@ -43,6 +43,7 @@ group :development do
   gem 'spring'
 
   gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 # Use ActiveModel has_secure_password
@@ -57,4 +58,4 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-ruby "2.1.1"
+ruby "2.1.2"
