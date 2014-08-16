@@ -138,7 +138,7 @@ DEPENDENCIES
   jquery-rails
   pg
   puma
-  rails (~> 4.1.0)
+  rails (~> 4.1)
   sass-rails
   sdoc
   spring
