@@ -4,21 +4,20 @@
 # gem 'pg'
 #
 
-development: &dev
+default: &def
   adapter: postgresql
-  encoding: unicode
-  database: nesselsburg_development
-  pool: 5
-
-
-development_mysql:
-  host: localhost
-  adapter: mysql2
   encoding: utf8
-  database: nesselsburg_development
-  reconect: true
-  username: zelazko
-  password: lazen
+  database: nesselsburg
+
+
+#development_mysql:
+#  host: localhost
+#  adapter: mysql2
+#  encoding: utf8
+#  database: nesselsburg_development
+#  reconect: true
+#  username: zelazko
+#  password: lazen
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -51,7 +50,7 @@ development_mysql:
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
-  <<: *dev
+  <<: *def
   database: nesselsburg_test
 
 # Do not keep production credentials in the repository,
