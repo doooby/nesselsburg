@@ -5,7 +5,7 @@ module DilnaHelper
       when String
         content_for :hrad_head, javascript_include_tag(arr)
       when Array
-        arr.each{|file| content_for :naradi, javascript_include_tag(file)}
+        arr.each{|file| content_for :hrad_head, javascript_include_tag(file)}
     end
     content_for :hrad_head, yield if block_given?
   end

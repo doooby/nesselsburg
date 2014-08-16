@@ -9,6 +9,15 @@ default: &def
   encoding: utf8
   database: nesselsburg
 
+development:
+  <<: *def
+
+production:
+  <<: *def
+
+test:
+  <<: *def
+  database: nesselsburg_test
 
 #development_mysql:
 #  host: localhost
@@ -49,9 +58,7 @@ default: &def
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
-test:
-  <<: *def
-  database: nesselsburg_test
+
 
 # Do not keep production credentials in the repository,
 # instead read the configuration from the environment.
