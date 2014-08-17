@@ -29,7 +29,8 @@ module Nesselsburg
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
-    config.autoload_paths << Rails.root.join('lib', 's3ocket_server')
+    config.autoload_paths << Rails.root.join('lib', 'nesselsburg')
+
     config.middleware.use 'S3ocketServerApp'
 
   end
