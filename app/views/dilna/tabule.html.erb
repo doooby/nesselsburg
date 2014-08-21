@@ -1,5 +1,4 @@
 <%#= backgroun_image_for '#content', image_path %>
-<%= javascript_include_tag 'games/posun_blok/bundled_base' %>
 
 <% flash.each do |k,txt| %>
   <%= k.upcase %> : <%= txt %>
@@ -13,7 +12,8 @@
 <br/>
 Projekty ve vývoji:
 <br/>
-<%= link_to 'První hra v Three.js : Dáma', dilna_prostranstvi_path(projekt: 'dama') %>
+<%= link_na_prostranstvi 'První hra v Three.js : Dáma', 'dama' %>
+<%= link_na_prostranstvi 'Druhá hra: Posuň blok', 'posun_blok' %>
 
 <!--<div style="top: 8em; position: absolute; border-top: 4px groove gray;min-width: 500px;padding: 2em">-->
 
