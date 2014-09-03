@@ -1,5 +1,14 @@
 <% vem_naradi('dev/posun_blok/bundled_base.js') %>
 <%= stylesheet_link_tag 'games/posun_blok' %>
 <div id="game_container"></div>
-<div id="game_controls"></div>
+<div id="game_controls">
+  <div data-ctrl="novy_svet">
+    šířka: <input type="text" id="sirka" size="5" value="10" maxlength="2" />
+    <br/>výška: <input type="text" id="vyska" size="5" value="10" maxlength="2" />
+    <br/>podlaha:
+    <br/>
+    <br/> <input type="button" value="Vytvořit" onclick="generujNovySvet();" />
+    <input type="button" value="Zpět" onclick="" />
+  </div>
+</div>
 <div id="game_output"></div>
