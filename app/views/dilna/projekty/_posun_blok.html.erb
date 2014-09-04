@@ -2,13 +2,24 @@
 <%= stylesheet_link_tag 'games/posun_blok' %>
 <div id="game_container"></div>
 <div id="game_controls">
+
   <div data-ctrl="novy_svet">
     šířka: <input type="text" id="sirka" size="5" value="10" maxlength="2" />
     <br/>výška: <input type="text" id="vyska" size="5" value="10" maxlength="2" />
     <br/>podlaha:
     <br/>
-    <br/> <input type="button" value="Vytvořit" onclick="generujNovySvet();" />
+    <br/> <input type="button" value="Vytvořit" onclick="GUI.generujSvet();" />
     <input type="button" value="Zpět" onclick="" />
+  </div>
+  <div data-ctrl="editace_sveta">
+    <div id="pruzkum_sveta"></div>
+    <ul data-typy="podlaha">
+      <li data-typ="11"><span>X</span>hliněnná</li>
+      <li data-typ="10"><span>X</span>kamenná</li>
+    </ul>
+    <ul data-typy="objekt">
+      <li data-typ="9"><span>X</span>hráč koule</li>
+    </ul>
   </div>
 </div>
 <div id="game_output"></div>
