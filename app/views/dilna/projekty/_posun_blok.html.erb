@@ -3,23 +3,38 @@
 <div id="game_container"></div>
 <div id="game_controls">
 
-  <div data-ctrl="novy_svet">
-    šířka: <input type="text" id="sirka" size="5" value="10" maxlength="2" />
-    <br/>výška: <input type="text" id="vyska" size="5" value="10" maxlength="2" />
-    <br/>podlaha:
+  <div data-ctrl="hlavni_menu" style="display:none">
+    <input type="button" value="Vyběr levelu"/>
+    <br/><input type="button" value="Editor" onclick="GUI.zobrazNabidku('editace_sveta');"/>
+  </div>
+
+  <div data-ctrl="editace_sveta" style="display:none">
+    <input type="button" value="Návrat do menu" onclick="GUI.zobrazNabidku('hlavni_menu');"/>
+    <input type="button" value="Uložit svět"/>
     <br/>
-    <br/> <input type="button" value="Vytvořit" onclick="GUI.generujSvet();" />
-    <input type="button" value="Zpět" onclick="" />
+    <!--novy_svet-->
+    <br/><input type="radio" name="editace_akce" value="novy_svet" onclick="GUI.zobrazPodmenu(this.value);"/> Nový svět
+    <div data-podmenu="novy_svet" style="display:none">
+      šířka: <input type="text" id="sirka" size="5" value="10" maxlength="2" />
+      <br/>výška: <input type="text" id="vyska" size="5" value="10" maxlength="2" />
+      <br/>podlaha: <select name="vyber_podlahy" ></select>
+      <br/>
+      <br/><input type="button" value="Vytvořit" onclick="GUI.vytvorSvet();" />
+    </div>
+    <!--pruzkum_sveta-->
+    <br/><input type="radio" name="editace_akce" value="pruzkum_sveta" onclick="GUI.zobrazPodmenu(this.value);"/> Objekty ve světě
+    <div data-podmenu="pruzkum_sveta" style="display:none"></div>
+    <!--editace_podlahy-->
+    <br/><input type="radio" name="editace_akce" value="editace_podlahy" onclick="GUI.zobrazPodmenu(this.value);"/> Podlahy
+    <div data-podmenu="editace_podlahy" style="display:none">
+      kliknutím nastavíš vybranou podlahu:
+      <select name="vyber_podlahy" ></select>
+      <!--<ul>-->
+        <!--<li data-typ="11"><span>X</span>hliněnná</li>-->
+        <!--<li data-typ="10"><span>X</span>kamenná</li>-->
+      <!--</ul>-->
+    </div>
   </div>
-  <div data-ctrl="editace_sveta">
-    <div id="pruzkum_sveta"></div>
-    <ul data-typy="podlaha">
-      <li data-typ="11"><span>X</span>hliněnná</li>
-      <li data-typ="10"><span>X</span>kamenná</li>
-    </ul>
-    <ul data-typy="objekt">
-      <li data-typ="9"><span>X</span>hráč koule</li>
-    </ul>
-  </div>
+
 </div>
 <div id="game_output"></div>
