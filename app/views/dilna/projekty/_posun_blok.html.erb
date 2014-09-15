@@ -15,24 +15,23 @@
     <!--novy_svet-->
     <br/><input type="radio" name="editace_akce" value="novy_svet" onclick="GUI.editor.zapniNastroj(this.value);"/> Nový svět
     <div data-nastroj="novy_svet" style="display:none">
-      šířka: <input type="text" id="new_sirka" size="5" value="10" maxlength="2" />
-      <br/>výška: <input type="text" id="new_vyska" size="5" value="10" maxlength="2" />
-      <br/>podlaha: <select name="vyber_podlahy" id="new_podlaha" ></select>
+      šířka: <input type="text" id="new_sirka" size="5" value="5" maxlength="2" />
+      <br/>výška: <input type="text" id="new_vyska" size="5" value="5" maxlength="2" />
+      <br/>podlaha: <select name="vyber_podlahy" id="new_podlaha"></select>
       <br/>
       <br/><input type="button" value="Vytvořit" onclick="GUI.editor.vytvorSvet();" />
     </div>
     <!--pruzkum_sveta-->
     <br/><input type="radio" name="editace_akce" value="pruzkum_sveta" onclick="GUI.editor.zapniNastroj(this.value);"/> Objekty ve světě
-    <div data-nastroj="pruzkum_sveta" style="display:none"></div>
+    <div data-nastroj="pruzkum_sveta" style="display:none">
+      <input type="button" value="Vlož bloky" onclick="GUI.editor.vlozBloky();"/><select name="vyber_bloku"  id="vloz_blok"></select>
+      <br/> <input type="button" value="Vymaž bloky"  onclick="GUI.editor.vymazBloky();"/>
+    </div>
     <!--editace_podlahy-->
     <br/><input type="radio" name="editace_akce" value="editace_podlahy" onclick="GUI.editor.zapniNastroj(this.value);"/> Podlahy
     <div data-nastroj="editace_podlahy" style="display:none">
       kliknutím nastavíš vybranou podlahu:
-      <select name="vyber_podlahy" ></select>
-      <!--<ul>-->
-        <!--<li data-typ="11"><span>X</span>hliněnná</li>-->
-        <!--<li data-typ="10"><span>X</span>kamenná</li>-->
-      <!--</ul>-->
+      <select name="vyber_podlahy" id="vloz_podlahu"></select>
     </div>
   </div>
 
