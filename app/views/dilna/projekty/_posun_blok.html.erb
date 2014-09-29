@@ -4,16 +4,18 @@
 <div id="game_controls">
 
   <div data-ctrl="hlavni_menu" style="display:none">
-    <input type="button" value="Vyběr levelu"/>
+    <input type="button" value="Hrát"/>
     <br/><input type="button" value="Editor" onclick="GUI.zobrazNabidku('editace_sveta');"/>
+    <br/><input type="button" value="Načíst svět"/>
+    <br/><input type="button" value="Uložit svět"/>
   </div>
 
-  <div data-ctrl="editace_sveta" style="display:block">
+  <div data-ctrl="editace_sveta" style="display:none">
     <input type="button" value="Návrat do menu" onclick="GUI.zobrazNabidku('hlavni_menu');"/>
-    <input type="button" value="Uložit svět"/>
     <br/>
+    <p class="poznamka">WASD rotace světa, kolečkem přibližování.</p>
     <!--novy_svet-->
-    <br/><input type="radio" name="editace_akce" value="novy_svet" onclick="GUI.editor.zapniNastroj(this.value);"/> Nový svět
+    <input type="radio" name="editace_akce" value="novy_svet" onclick="GUI.editor.zapniNastroj(this.value);"/> Nový svět
     <div data-nastroj="novy_svet" style="display:none">
       šířka: <input type="text" id="new_sirka" size="5" value="5" maxlength="2" />
       <br/>výška: <input type="text" id="new_vyska" size="5" value="5" maxlength="2" />
