@@ -1,13 +1,9 @@
 
-# Precompile additional assets.
-# application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
-# config.assets.precompile = ['*.css', '**/*.css']
-precompile_arr = Rails.application.config.assets.precompile
-precompile_arr += %w(predhradi.css hrad.css)
-precompile_arr += %w(games/*.css)
-precompile_arr += %w(predhradi.js hrad.js)
-precompile_arr += %w(games/*/base.js games/*/bundled_base.js)
-Rails.application.config.assets.precompile =  precompile_arr
+c = Rails.application.config
+c.assets.paths << Rails.root.join('lib', 'games')
+c.assets.precompile += %w(predhradi.css hrad.css predhradi.js hrad.js)
+c.assets.precompile += %w(j3o.1.js j3o.2.js s3ocket.js games_data.js)
+c.assets.precompile += %w(*/main.js */main.css)
 
 # soubory s názvem bundled_base.js jsou uzavřeny do    (function(){ <kód> })();
 Rails.application.assets.register_compressor 'application/javascript', :uglifier, NesselsburgSprockets::EnclosingCompressor

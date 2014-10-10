@@ -5,7 +5,7 @@ module NesselsburgSprockets
 
     def evaluate(scope, locals, &block)
       opts = {comments: :none}
-      opts[:enclose] = {} if @file=~/\/bundled_base[^\/]*$/
+      opts[:enclose] = {} if @file=~/\/main\.js$/
       Uglifier.compile data, opts
     end
 

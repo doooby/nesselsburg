@@ -60,10 +60,19 @@ Rails.application.routes.draw do
     get 'zed' => 'predhradi#zed', as: 'zed'
   end
 
-  constraints format: [%i(html js json)] do
+  constraints format: %i(html js json) do
     namespace :dilna do
       get 'tabule'
       match 'prostranstvi', via: :all
+    end
+  end
+
+  constraints format: :js do
+    namespace :games do
+      get :data
+      get :any_data
+      get :any_keys
+      post :store_data
     end
   end
 

@@ -1,13 +1,22 @@
-<% vem_naradi('dev/posun_blok/bundled_base.js') %>
-<%= stylesheet_link_tag 'games/posun_blok' %>
+<% vem_naradi('posun_blok/main.js') %>
+<%= stylesheet_link_tag 'posun_blok/main' %>
 <div id="game_container"></div>
 <div id="game_controls">
 
   <div data-ctrl="hlavni_menu" style="display:none">
     <input type="button" value="Hrát"/>
     <br/><input type="button" value="Editor" onclick="GUI.zobrazNabidku('editace_sveta');"/>
-    <br/><input type="button" value="Načíst svět"/>
-    <br/><input type="button" value="Uložit svět"/>
+    <br/><input type="button" value="Sklad světů" onclick="GUI.zobrazNabidku('sklad_svetu');"/>
+  </div>
+
+  <div data-ctrl="sklad_svetu" style="display:none">
+    <input type="button" value="Návrat do menu" onclick="GUI.zobrazNabidku('hlavni_menu');"/>
+    <br/>
+    <input type="button" value="Načti tento" onclick="GUI.nahrejTentoSvet($('#vyber_sveta').val());"/>
+    <select id="vyber_sveta"></select>
+    <br/>
+    <input type="text" id="nazev_sveta" size="25" maxlength="30" />
+    <input type="button" value="Uloži aktuální" onclick="GUI.ulozSvet($('#nazev_sveta').val());"/>
   </div>
 
   <div data-ctrl="editace_sveta" style="display:none">
