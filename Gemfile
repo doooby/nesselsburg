@@ -18,6 +18,7 @@ gem 'sass-rails'#, '~> 4.0.2'
 gem 'uglifier'#, '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails'#, '~> 4.0.0'
+gem 'non-stupid-digest-assets'
 
 
 # Use jquery as the JavaScript library
@@ -36,7 +37,7 @@ gem 'faye-websocket'
 
 
 group :production do
-  gem 'rails_serve_static_assets'
+  gem 'rails_12factor'
 end
 
 group :development do

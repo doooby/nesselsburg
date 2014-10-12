@@ -14,6 +14,10 @@ require "sprockets/railtie"
 Bundler.require(*Rails.groups)
 
 module Nesselsburg
+
+  CODE_VERSION = '0.1.0'
+  STATUS = 'just messing around'
+
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

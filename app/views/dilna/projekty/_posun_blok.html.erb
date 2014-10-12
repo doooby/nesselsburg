@@ -1,54 +1,53 @@
-<% vem_naradi('posun_blok/main.js') %>
-<%= stylesheet_link_tag 'posun_blok/main' %>
+<% vem_projekt 'posun_blok' %>
 <div id="game_container"></div>
 <div id="game_controls">
 
   <div data-ctrl="hlavni_menu" style="display:none">
-    <input type="button" value="Hrát" onclick="GUI.zobrazNabidku('hra');"/>
-    <br/><input type="button" value="Editor" onclick="GUI.zobrazNabidku('editace_sveta');"/>
-    <br/><input type="button" value="Sklad světů" onclick="GUI.zobrazNabidku('sklad_svetu');"/>
+    <input type="button" value="Hrát" onclick="document.gui.zobrazNabidku('hra');"/>
+    <br/><input type="button" value="Editor" onclick="document.gui.zobrazNabidku('editace_sveta');"/>
+    <br/><input type="button" value="Sklad světů" onclick="document.gui.zobrazNabidku('sklad_svetu');"/>
   </div>
 
   <div data-ctrl="hra" style="display:none">
-    <input type="button" value="Návrat do menu" onclick="GUI.zobrazNabidku('hlavni_menu');"/>
+    <input type="button" value="Návrat do menu" onclick="document.gui.zobrazNabidku('hlavni_menu');"/>
     <br/>
     <br/>
     <input type="button" value="Restart světa" onclick=""/>
   </div>
 
   <div data-ctrl="sklad_svetu" style="display:none">
-    <input type="button" value="Návrat do menu" onclick="GUI.zobrazNabidku('hlavni_menu');"/>
+    <input type="button" value="Návrat do menu" onclick="document.gui.zobrazNabidku('hlavni_menu');"/>
     <br/>
     <br/>
-    <input type="button" value="Načti tento" onclick="GUI.nahrejTentoSvet($('#vyber_sveta').val());"/>
+    <input type="button" value="Načti tento" onclick="document.gui.nahrejTentoSvet($('#vyber_sveta').val());"/>
     <select id="vyber_sveta"></select>
     <br/>
     <input type="text" id="nazev_sveta" size="25" maxlength="30" />
-    <input type="button" value="Uloži aktuální" onclick="GUI.ulozSvet($('#nazev_sveta').val());"/>
+    <input type="button" value="Uloži aktuální" onclick="document.gui.ulozSvet($('#nazev_sveta').val());"/>
   </div>
 
   <div data-ctrl="editace_sveta" style="display:none">
-    <input type="button" value="Návrat do menu" onclick="GUI.zobrazNabidku('hlavni_menu');"/>
+    <input type="button" value="Návrat do menu" onclick="document.gui.zobrazNabidku('hlavni_menu');"/>
     <br/>
     <br/>
     <p class="poznamka">šipky rotace světa, kolečkem přibližování.</p>
     <!--novy_svet-->
-    <input type="radio" name="editace_akce" value="novy_svet" onclick="GUI.editor.zapniNastroj(this.value);"/> Nový svět
+    <input type="radio" name="editace_akce" value="novy_svet" onclick="document.gui.editor.zapniNastroj(this.value);"/> Nový svět
     <div data-nastroj="novy_svet" style="display:none">
       šířka: <input type="text" id="new_sirka" size="5" value="5" maxlength="2" />
       <br/>výška: <input type="text" id="new_vyska" size="5" value="5" maxlength="2" />
       <br/>podlaha: <select name="vyber_podlahy" id="new_podlaha"></select>
       <br/>
-      <br/><input type="button" value="Vytvořit" onclick="GUI.editor.vytvorSvet();" />
+      <br/><input type="button" value="Vytvořit" onclick="document.gui.editor.vytvorSvet();" />
     </div>
     <!--pruzkum_sveta-->
-    <br/><input type="radio" name="editace_akce" value="pruzkum_sveta" onclick="GUI.editor.zapniNastroj(this.value);"/> Objekty ve světě
+    <br/><input type="radio" name="editace_akce" value="pruzkum_sveta" onclick="document.gui.editor.zapniNastroj(this.value);"/> Objekty ve světě
     <div data-nastroj="pruzkum_sveta" style="display:none">
-      <input type="button" value="Vlož bloky" onclick="GUI.editor.vlozBloky();"/><select name="vyber_bloku"  id="vloz_blok"></select>
-      <br/> <input type="button" value="Vymaž bloky"  onclick="GUI.editor.vymazBloky();"/>
+      <input type="button" value="Vlož bloky" onclick="document.gui.editor.vlozBloky();"/><select name="vyber_bloku"  id="vloz_blok"></select>
+      <br/> <input type="button" value="Vymaž bloky"  onclick="document.gui.editor.vymazBloky();"/>
     </div>
     <!--editace_podlahy-->
-    <br/><input type="radio" name="editace_akce" value="editace_podlahy" onclick="GUI.editor.zapniNastroj(this.value);"/> Podlahy
+    <br/><input type="radio" name="editace_akce" value="editace_podlahy" onclick="document.gui.editor.zapniNastroj(this.value);"/> Podlahy
     <div data-nastroj="editace_podlahy" style="display:none">
       kliknutím nastavíš vybranou podlahu:
       <select name="vyber_podlahy" id="vloz_podlahu"></select>

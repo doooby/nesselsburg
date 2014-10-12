@@ -1,13 +1,10 @@
 module DilnaHelper
 
-  def vem_naradi(arr=nil)
-    case arr
-      when String
-        content_for :hrad_head, javascript_include_tag(arr)
-      when Array
-        content_for :hrad_head, arr.each{|file| javascript_include_tag(file)}.join.html_safe
-    end
-    content_for :hrad_head, yield if block_given?
+  def vem_projekt(nazev)
+    content_for :hrad_head, [
+        javascript_include_tag("#{nazev}/main"),
+        stylesheet_link_tag("#{nazev}/main")
+    ].join.html_safe
   end
 
   def link_na_prostranstvi(napis, projekt)
