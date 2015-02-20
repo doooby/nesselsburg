@@ -1,3 +1,3 @@
 //= require jquery
 //= require jquery_ujs
-//= require three.js
+//= require three_js/build/three.min.js
