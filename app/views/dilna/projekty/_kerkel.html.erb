@@ -1,0 +1,20 @@
+<% vem_projekt 'kerkel' %>
+<div id="kerkel">
+  <div>
+    K E R K E L
+    <span id="game_menu">
+      <%= text_field_tag :play_with, nil, placeholder: 'id-protivníka' %>
+      <%= button_tag 'Vyzvi', id: 'btn_play_with' %>
+    </span>
+  </div>
+  <div id="game_container"></div>
+  <br/>
+  <div>
+    <%= text_field_tag 'chat_input', '', size: 65 %>
+    <%= button_tag 'Odešli', id: 'chat_send' %>
+  </div>
+</div>
+<div id="printout"></div>
+
+<!--<script id="vertex_shader" type="x-shader/x-vertex"></script>-->
+<!--<script id="fragment_shader" type="x-shader/x-fragment"></script>-->

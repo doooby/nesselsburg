@@ -15,7 +15,7 @@ J3O.structs('MaterialOfCircle', function (app) {
             },
             vertexShader: vs,
             fragmentShader: "<%= NesselsburgSprockets::ShadersLoader[:fs_circle, __FILE__] %>",
-            side: THREE.BackSide
+            side: THREE.DoubleSide
         });
     }});
 
@@ -29,7 +29,7 @@ J3O.structs('MaterialOfCircle', function (app) {
             },
             vertexShader: vs,
             fragmentShader: "<%= NesselsburgSprockets::ShadersLoader[:fs_filled_circle, __FILE__] %>",
-            side: THREE.BackSide
+            side: THREE.DoubleSide
         });
     }});
 
