@@ -64,6 +64,7 @@ Rails.application.routes.draw do
     namespace :dilna do
       get 'tabule'
       match 'prostranstvi', via: :all
+      get 'stand_alone'
     end
   end
 

@@ -14,4 +14,9 @@ class DilnaController < ApplicationController
       render 'dilna/prostranstvi', locals: {projekt: projekt}
     end
   end
+
+  def stand_alone
+    render 'stand_alone', layout: false
+  end
+
 end
