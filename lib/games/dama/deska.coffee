@@ -21,7 +21,7 @@ class DAMA.Deska
             new THREE.MeshBasicMaterial({color: 0xFFFFFF})
         ]
         @mesh =new THREE.Mesh(geom, new THREE.MeshFaceMaterial(maters))
-        @mesh.position = DAMA.offset_desky
+        @mesh.position.copy(DAMA.offset_desky)
         @mesh.matrixAutoUpdate = false
         @mesh.updateMatrix()
         @scene.add(@mesh)

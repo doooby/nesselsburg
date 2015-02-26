@@ -13,7 +13,7 @@ class DAMA.Kamen
         @mesh.rotation.x = 1.57
         @mesh.castShadow = true
     presunNa: (pozice) ->
-        @mesh.position = DAMA.worldPosition(pozice)
+        @mesh.position.copy(DAMA.worldPosition(pozice))
         @mesh.position.z = 0.5
         @mesh.updateMatrix()
     zmenNaDamu: (scene) ->
