@@ -1,0 +1,199 @@
+/**
+ * Created by doooby on 20.2.15.
+ */
+
+J3O.struct('board', function (app) {
+  var positions = [];
+
+  this.attribute('local_player', null, true);
+
+  this.method('createBoard', function() {
+    function create_position(index, v_position) {
+      var geom = new THREE.PlaneBufferGeometry(app.position_size, app.position_size);
+      var mater = new THREE.ShaderMaterial({
+        uniforms: {
+          radius: { type: "f", value: 0.43 },
+          stroke: { type: "f", value: 0.5 },
+          innerCol: { type: "c", value: new THREE.Color( 0xffffff ) },
+          strokeCol: { type: "c", value: new THREE.Color( 0x000000 ) }
+        },
+        vertexShader: "<%= NesselsburgSprockets::ShadersLoader[:vs_circle, __FILE__] %>",
+        fragmentShader: "<%= NesselsburgSprockets::ShadersLoader[:fs_filled_circle, __FILE__] %>",
+        side: THREE.DoubleSide
+      });
+      var position = new THREE.Mesh(geom, mater);
+      position.position.copy(v_position);
+      position.model = {
+        index: index,
+        stone: null
+      };
+      return position;
+    }
+
+    var p, i;
+    for (i=0; i<25; i+=1) {
+      p = create_position(i, this.vectorOfPositionIndex(i));
+      positions.push(p);
+      canvas.scene.add(p);
+    }
+  });
+
+  this.method('vectorOfPositionIndex', function (index) {
+    var v = app.board_top_left.clone();
+    var xy = to_xy(index);
+    v.x += (xy.x + .5) * app.position_total_size;
+    v.y += (xy.y + .5) * app.position_total_size;
+    return v;
+  });
+
+  this.method('positionHit', function (raycaster) {
+    return raycaster.intersectObjects(positions)[0];
+  });
+
+  this.method('removeAllStones', function () {
+    positions.forEach(function (p) {
+      var s = p.model.stone;
+      if (s) {
+        canvas.scene.remove(s);
+        p.model.stone = null;
+      }
+    });
+  });
+
+  this.method('layDownStones', function (stones) {
+    stones.forEach(function (s) {
+      positions[s.model.start_position].model.stone = s;
+      canvas.scene.add(s);
+    });
+  });
+
+  this.method('moveStone', function (from_index, to_index) {
+    var from_model = positions[from_index].model;
+    if (!from_model.stone) {
+      printout('Zahrán chybný tah.', 'err');
+      J3O.game.fatal();
+    }
+    var to_model = positions[to_index].model;
+
+    if (to_model.stone) {
+      canvas.scene.remove(to_model.stone);
+    }
+    to_model.stone = from_model.stone;
+    from_model.stone = null;
+    to_model.stone.model.movedTo(to_model.index);
+    to_model.stone.model.rotate();
+    canvas.redraw();
+  });
+
+  this.method('possibleStepsFor', function (position_model) {
+    return new_steps_collection(position_model);
+  });
+
+  // --------------------------------------------------------------------
+
+  function to_xy(i) {
+    return {x: (i % 5), y: Math.floor(i / 5)};
+  }
+
+  var new_steps_collection = (function () {
+
+    var proto = Object.create([], {
+      addIfWalkable: {value: function(test_f){
+        var xy = test_f({x: this.from_xy.x, y: this.from_xy.y});
+        if (!xy) return;
+        var index = xy.y * 5 + xy.x;
+        var position = positions[index];
+        if (index===2 || index===22) return;
+        if (!position.model.stone || !position.model.stone.model.game) this.push(position);
+      }},
+      walkSurroundings: {value: function (index) {
+        this.addIfWalkable(function(new_xy){
+          if (new_xy.x===4) {
+            if (new_xy.y%2===0) new_xy.x = 0;
+            else if(new_xy.y===1) new_xy.y = 3;
+            else new_xy.y = 1;
+            if (new_xy.y!==2) return new_xy;
+          }
+          else {
+            new_xy.x += 1;
+            return new_xy;
+          }
+        });
+
+        this.addIfWalkable(function(new_xy){
+          if (new_xy.x===0) {
+            if (new_xy.y%2===0) new_xy.x = 4;
+            else if(new_xy.y===1) new_xy.y = 3;
+            else new_xy.y = 1;
+            if (new_xy.y!==2) return new_xy;
+          }
+          else {
+            new_xy.x -= 1;
+            return new_xy;
+          }
+        });
+
+        this.addIfWalkable(function(new_xy){
+          if (new_xy.y===4) {
+            if (new_xy.x%2===0) new_xy.y = 0;
+            else if(new_xy.x===1) new_xy.x = 3;
+            else new_xy.x = 1;
+            if (new_xy.x!==2) return new_xy;
+          }
+          else {
+            new_xy.y += 1;
+            return new_xy;
+          }
+        });
+
+        this.addIfWalkable(function(new_xy){
+          if (new_xy.y===0) {
+            if (new_xy.x%2===0) new_xy.y = 4;
+            else if(new_xy.x===1) new_xy.x = 3;
+            else new_xy.x = 1;
+            if (new_xy.x!==2) return new_xy;
+          }
+          else {
+            new_xy.y -= 1;
+            return new_xy;
+          }
+        });
+
+        if (index%2===0) {
+          this.addIfWalkable(function (new_xy) {
+            new_xy.x += 1;
+            new_xy.y += 1;
+            if (new_xy.x!==5 && new_xy.y!==5) return new_xy;
+          });
+
+          this.addIfWalkable(function (new_xy) {
+            new_xy.x -= 1;
+            new_xy.y += 1;
+            if (new_xy.x!==-1 && new_xy.y!==5) return new_xy;
+          });
+
+          this.addIfWalkable(function (new_xy) {
+            new_xy.x -= 1;
+            new_xy.y -= 1;
+            if (new_xy.x!==-1 && new_xy.y!==-1) return new_xy;
+          });
+
+          this.addIfWalkable(function (new_xy) {
+            new_xy.x += 1;
+            new_xy.y -= 1;
+            if (new_xy.x!==5 && new_xy.y!==-1) return new_xy;
+          });
+        }
+      }}
+    });
+
+    return function (position_model) {
+      if (position_model.index===2 || position_model.index===22) return [];
+      var steps = Object.create(proto, {from_xy: {value: to_xy(position_model.index)}});
+      steps.walkSurroundings(position_model.index);
+      return steps
+    };
+
+  }());
+
+});

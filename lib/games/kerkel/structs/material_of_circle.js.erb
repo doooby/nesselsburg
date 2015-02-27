@@ -1,37 +1,37 @@
-/**
- * Created by doooby on 20.2.15.
- */
-
-J3O.structs('MaterialOfCircle', function (app) {
-    var klass = {};
-    var vs = "<%= NesselsburgSprockets::ShadersLoader[:vs_circle, __FILE__] %>";
-
-    Object.defineProperty(klass, 'create', {value: function (radius, stroke, c_stroke) {
-        return new THREE.ShaderMaterial({
-            uniforms: {
-                radius: { type: "f", value: radius },
-                stroke: { type: "f", value: radius+stroke },
-                strokeCol: { type: "c", value: new THREE.Color( c_stroke ) }
-            },
-            vertexShader: vs,
-            fragmentShader: "<%= NesselsburgSprockets::ShadersLoader[:fs_circle, __FILE__] %>",
-            side: THREE.DoubleSide
-        });
-    }});
-
-    Object.defineProperty(klass, 'createFilled', {value: function (radius, stroke, c_inner, c_stroke) {
-        return new THREE.ShaderMaterial({
-            uniforms: {
-                radius: { type: "f", value: radius },
-                stroke: { type: "f", value: radius+stroke },
-                innerCol: { type: "c", value: new THREE.Color( c_inner ) },
-                strokeCol: { type: "c", value: new THREE.Color( c_stroke ) }
-            },
-            vertexShader: vs,
-            fragmentShader: "<%= NesselsburgSprockets::ShadersLoader[:fs_filled_circle, __FILE__] %>",
-            side: THREE.DoubleSide
-        });
-    }});
-
-    return klass;
-});
+///**
+// * Created by doooby on 20.2.15.
+// */
+//
+//J3O.structs('MaterialOfCircle', function (app) {
+//    var struct = {};
+//    var vs = "<%#= NesselsburgSprockets::ShadersLoader[:vs_circle, __FILE__] %>";
+//
+//    Object.defineProperty(struct, 'create', {value: function (radius, stroke, c_stroke) {
+//        return new THREE.ShaderMaterial({
+//            uniforms: {
+//                radius: { type: "f", value: radius },
+//                stroke: { type: "f", value: radius+stroke },
+//                strokeCol: { type: "c", value: new THREE.Color( c_stroke ) }
+//            },
+//            vertexShader: vs,
+//            fragmentShader: "<%#= NesselsburgSprockets::ShadersLoader[:fs_circle, __FILE__] %>",
+//            side: THREE.DoubleSide
+//        });
+//    }});
+//
+//    Object.defineProperty(struct, 'createFilled', {value: function (radius, stroke, c_inner, c_stroke) {
+//        return new THREE.ShaderMaterial({
+//            uniforms: {
+//                radius: { type: "f", value: radius },
+//                stroke: { type: "f", value: radius+stroke },
+//                innerCol: { type: "c", value: new THREE.Color( c_inner ) },
+//                strokeCol: { type: "c", value: new THREE.Color( c_stroke ) }
+//            },
+//            vertexShader: vs,
+//            fragmentShader: "<%#= NesselsburgSprockets::ShadersLoader[:fs_filled_circle, __FILE__] %>",
+//            side: THREE.DoubleSide
+//        });
+//    }});
+//
+//    return struct;
+//});
