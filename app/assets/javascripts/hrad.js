@@ -1,3 +1,9 @@
 //= require jquery
 //= require jquery_ujs
-//= require three_js/build/three.min.js
+//
+//= require vendor/modernizr
+//= require foundation/foundation
+//
+//= require three
+//= require underscore
+////= require j3o.4/main

@@ -20,7 +20,7 @@ module NesselsburgSprockets
     end
 
     def self.project_from_path(file_path)
-      file_path.match(/\/games\/(\w+)/)[1] || raise("Can't figure out the project from #{file_path}")
+      file_path.match(/\/games\/(\w+)/)[1] || raise("Can't figure out the game directory from #{file_path}")
     end
 
     def self.projects_shaders_cache(project)

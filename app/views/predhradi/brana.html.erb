@@ -1,7 +1,47 @@
 <%= backgroun_image_for '#predhradi_page', 'predhradi/brana_vystavba.bmp' %>
-<%= link_to 'přejít k rozestavěné dílně', dilna_tabule_path, id: 'dilna_link' %>
+
+<div id="vstup">
+  <% if user_signed_in? %>
+    <%= link_to "vstoupit jako #{current_user.username}", hrad_path %>
+  <% else %>
+    <label for="user_email">Email</label>
+    <input type="text" id="user_email" value="tester@test.cz"/>
+    <br/>
+    <label for="user_password">Heslo</label>
+    <input type="password" id="user_password"/>
+    <br/>
+    <div id="vypis"></div>
+  <% end %>
+</div>
+
 
 <div id="brana_odkazy">
   <%= link_to 'Podél zdi', zed_path, id: 'zed_link' %>
   <%= link_to 'K vývěsce', vyveska_path, id: 'vyveska_link' %>
 </div>
+
+<script>
+  $(function () {
+    var inputs = $('#vstup').find('input');
+    inputs.on('keyup', function (e) {
+      if (e.which===13) {
+        $.ajax({
+          type: 'POST',
+          url: '<%= login_path format: :json %>',
+          data: {user: {email: $('#user_email').val(), password: $('#user_password').val()}},
+          beforeSend: function () {
+            inputs.prop('disabled', true);
+          },
+          success: function () {
+            window.location.replace('<%= hrad_path %>');
+          },
+          error: function (e) {
+            inputs.prop('disabled', false);
+            $('#vypis').html(e.responseJSON.error);
+            console.log(e);
+          }
+        });
+      }
+    });
+  });
+</script>
