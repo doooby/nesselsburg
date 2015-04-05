@@ -6,4 +6,7 @@
 //
 //= require three
 //= require underscore
-////= require j3o.4/main
+//= require backbone
+//= require handlebars
+//
+//= require hrad/app

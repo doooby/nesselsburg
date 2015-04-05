@@ -4,7 +4,7 @@
 
 J3O.structs('MaterialOfCircle', function (app) {
     var klass = {};
-    var vs = "<%= NesselsburgSprockets::ShadersLoader[:vs_circle, __FILE__] %>";
+    var vs = "<%= Nesselsburg::ShadersLoader[:vs_circle, __FILE__] %>";
 
     Object.defineProperty(klass, 'create', {value: function (radius, stroke, c_stroke) {
         return new THREE.ShaderMaterial({
@@ -14,7 +14,7 @@ J3O.structs('MaterialOfCircle', function (app) {
                 strokeCol: { type: "c", value: new THREE.Color( c_stroke ) }
             },
             vertexShader: vs,
-            fragmentShader: "<%= NesselsburgSprockets::ShadersLoader[:fs_circle, __FILE__] %>",
+            fragmentShader: "<%= Nesselsburg::ShadersLoader[:fs_circle, __FILE__] %>",
             side: THREE.DoubleSide
         });
     }});
@@ -28,7 +28,7 @@ J3O.structs('MaterialOfCircle', function (app) {
                 strokeCol: { type: "c", value: new THREE.Color( c_stroke ) }
             },
             vertexShader: vs,
-            fragmentShader: "<%= NesselsburgSprockets::ShadersLoader[:fs_filled_circle, __FILE__] %>",
+            fragmentShader: "<%= Nesselsburg::ShadersLoader[:fs_filled_circle, __FILE__] %>",
             side: THREE.DoubleSide
         });
     }});

@@ -1,5 +1,5 @@
 
-NesselsburgSprockets::ShadersLoader.add :vs_circle, __FILE__, <<VS_CIRCLE
+Nesselsburg::ShadersLoader.add :vs_circle, __FILE__, <<VS_CIRCLE
 varying vec2 vUV;
 void main() {
   vUV = uv;
@@ -7,7 +7,7 @@ void main() {
 }
 VS_CIRCLE
 
-NesselsburgSprockets::ShadersLoader.add :fs_circle, __FILE__, <<FS_CIRCLE
+Nesselsburg::ShadersLoader.add :fs_circle, __FILE__, <<FS_CIRCLE
 uniform vec3 strokeCol;
 uniform float radius;
 uniform float stroke;
@@ -19,7 +19,7 @@ void main() {
 }
 FS_CIRCLE
 
-NesselsburgSprockets::ShadersLoader.add :fs_filled_circle, __FILE__, <<FS_FILLED_CIRCLE
+Nesselsburg::ShadersLoader.add :fs_filled_circle, __FILE__, <<FS_FILLED_CIRCLE
 uniform vec3 innerCol;
 uniform vec3 strokeCol;
 uniform float radius;

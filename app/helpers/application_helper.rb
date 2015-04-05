@@ -6,4 +6,15 @@ module ApplicationHelper
     end
   end
 
+  def templates_bundle(rel_path)
+    rel_path = "app/templates/#{rel_path}/*.hb"
+    Dir[Rails.root.join *rel_path.split('/')].each do |template|
+      concat content_tag(:script, File.read(template),
+                         {id: "#{template[/\/(\w+)\.hb$/, 1]}-template",
+                          type: 'text/x-handlebars-template'}, false)
+
+    end
+    nil
+  end
+
 end

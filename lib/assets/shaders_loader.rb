@@ -1,4 +1,4 @@
-module NesselsburgSprockets
+module Nesselsburg
   module ShadersLoader
 
     def self.add(key, file_path, shader)

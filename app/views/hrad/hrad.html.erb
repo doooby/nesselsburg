@@ -9,19 +9,18 @@
 </head>
 <body>
 <div id="menu">
-  <div id="logo">
-    MENU
-  </div>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  <br/>uživatel: <%= current_user && current_user.username %>
-  <br/><%= link_to 'odhlásit se', logout_path, method: :delete %>
-  <br/><%= link_to 'odejít', brana_path %>
+<ul class="side-nav">
+  <li><a href="#" id="nadvori">Nádvoří</a></li>
+  <li><a href="#" id="dilna">Dílna</a></li>
+  <li class="divider"></li>
+  <li><%= link_to 'odhlásit se', logout_path, method: :delete %></li>
+  <li><%= link_to 'odejít', brana_path %></li>
+</ul>
 </div>
 
-<div id="content"></div>
+<div id="container"></div>
+
+<%= templates_bundle 'hrad' %>
 
 </body>
 </html>
