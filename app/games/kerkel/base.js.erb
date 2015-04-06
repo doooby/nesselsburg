@@ -1,0 +1,59 @@
+'use strict';
+<% require Rails.root.join('app', 'assets', 'games_assets.rb') %>
+
+/// GAME DATA
+var GAME_DATA = {};
+GAME_DATA.sirka_zaberu = null;
+GAME_DATA.vyska_zaberu = 700;
+
+GAME_DATA.position_size = 60;
+GAME_DATA.position_indentation = 25;
+GAME_DATA.position_total_size = GAME_DATA.position_size + 2*GAME_DATA.position_indentation;
+
+var board_position = 0.5*GAME_DATA.vyska_zaberu - 2.5*GAME_DATA.position_total_size;
+GAME_DATA.board_top_left = new THREE.Vector3(board_position, board_position, 0);
+
+GAME_DATA.stone_size = GAME_DATA.position_size / 3;
+
+
+/// GAME
+var GAME = {
+  id: 'kerkel',
+  views: {},
+  templates: <%= JSON.generate Nesselsburg::GamesAssets.templates_hash(__FILE__) %>,
+  shaders: <%= JSON.generate Nesselsburg::GamesAssets.shaders_hash(__FILE__) %>,
+
+  attachGame: function (jqel, utils) {
+    jqel.html('<div id="game_container" style="width: 400px; height: 400px;"></div>');
+    GAME.view = new GAME_VIEW();
+    GAME.utils = utils;
+
+    //plátno
+    GAME.canvas = GAME.utils.createCanvas({
+//              clear_color: 0xffffff
+            },
+            function () {
+              var camera, height, width;
+              height = GAME_DATA.vyska_zaberu / 2;
+              width = (this.width / this.height) * height;
+              GAME_DATA.sirka_zaberu = width * 2;
+
+              camera = new THREE.OrthographicCamera(width, -width, height, -height, 0, 100);
+              camera.up = new THREE.Vector3(0, -1, 0);
+              camera.position.set(width, height, 50);
+              camera.lookAt(new THREE.Vector3(width, height, 0));
+              return camera;
+            }
+    );
+    //////////////// inicializace //////////////////
+//    J3O.structs.load(app_options);
+//    J3O.Board.createBoard();
+
+//        var game = J3O.Game.createGameplay();
+//        J3O.Game.prepareGameplay(game);
+
+    GAME.canvas.redraw();
+
+  }
+};
+

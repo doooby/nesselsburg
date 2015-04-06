@@ -4,7 +4,7 @@ class Sprockets::EnclosingCompressor < Sprockets::UglifierCompressor
 
   def evaluate(scope, locals, &block)
     opts = {comments: :none}
-    opts[:enclose] = {} if @file=~/\/app\.js$/
+    opts[:enclose] = {} if @file=~/main\.js$/
     Uglifier.compile data, opts
   end
 

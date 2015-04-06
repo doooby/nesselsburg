@@ -1,24 +1,57 @@
-/*
-*= require hrad/_base
-*/
+@import "hrad/base";
 
 $menu-width: 150px;
-$menu-padding: 8px;
+$udalosti-width: 300px;
 
 body {
   margin: 0;
 }
 
-#menu {
+#menu_bar {
   position: fixed;
   padding: 8px;
   width: $menu-width;
   background-color: #c1dd96;
   height: 100%;
+  #menu {
+    height: 90%;
+  }
 }
 
-
 #container {
-  margin-left: $menu-width + 2*$menu-padding;
+  margin-left: $menu-width;
+  margin-right: $udalosti-width;
   padding: 3em;
+  position: relative;
+}
+
+#udalosti {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: $udalosti-width;
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+  border-left: 2px solid $oil;
+  background-color: $smoke;
+  #promluva {
+    margin: 0;
+    flex: 0 1 rem-calc(32);
+    min-height: rem-calc(32);
+  }
+  #nastaveni {
+    flex: 0 1 rem-calc(26);
+    min-height: rem-calc(26);
+    span {
+      margin-left: rem-calc(15);
+      margin-right: rem-calc(5);
+    }
+  }
+  #vypis {
+    overflow-y: hidden;
+    padding: rem-calc(8);
+    flex: 1 1 auto;
+    font-size: rem-calc(11);
+  }
 }

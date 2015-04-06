@@ -2,7 +2,7 @@
 
 <div id="vstup">
   <% if user_signed_in? %>
-    <%= link_to "vstoupit jako #{current_user.username}", hrad_path %>
+    <%= link_to "vstoupit jako #{current_user.username}", root_path %>
   <% else %>
     <label for="user_email">Email</label>
     <input type="text" id="user_email" value="tester@test.cz"/>
@@ -33,7 +33,7 @@
             inputs.prop('disabled', true);
           },
           success: function () {
-            window.location.replace('<%= hrad_path %>');
+            window.location.replace('<%= root_path %>');
           },
           error: function (e) {
             inputs.prop('disabled', false);

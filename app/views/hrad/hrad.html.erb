@@ -8,19 +8,17 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<div id="menu">
-<ul class="side-nav">
-  <li><a href="#" id="nadvori">Nádvoří</a></li>
-  <li><a href="#" id="dilna">Dílna</a></li>
-  <li class="divider"></li>
-  <li><%= link_to 'odhlásit se', logout_path, method: :delete %></li>
-  <li><%= link_to 'odejít', brana_path %></li>
-</ul>
+
+<div id="menu_bar">
+  <div id="menu"></div>
+  <%= link_to 'odhlásit se', logout_path, method: :delete %>
+  <br/>
+  <%= link_to 'odejít', brana_path %>
 </div>
-
 <div id="container"></div>
+<div id="udalosti"></div>
 
-<%= templates_bundle 'hrad' %>
+<%= templates_bundle '/' %>
 
 </body>
 </html>

@@ -9,4 +9,4 @@
 //= require backbone
 //= require handlebars
 //
-//= require hrad/app
+//= require ../../client/app_main.js
