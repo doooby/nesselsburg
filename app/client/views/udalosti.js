@@ -10,8 +10,11 @@ JNES.views.Udalosti = Backbone.View.extend({
         this.$el.html(this.template());
     },
     vypis: function (udalost) {
-        console.log(this.$vypis[0]);
-        this.$vypis.prepend('<div>'+udalost.text+'</div>');
+
+        this.$vypis.prepend('<div class="'+udalost.class+'">'+udalost.text+'</div>');
+
+//        printout_tag.append(div);
+//        printout_tag.scrollTop(printout_tag.prop('scrollHeight'));
     }
 });
 

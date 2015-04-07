@@ -6,6 +6,13 @@ Object.defineProperty(JNES, 'utils', {enumerable: true, value:
     (function () {
         var utils = {};
 
+        Object.defineProperty(utils, 'log', {enumerable: true, value:
+            function (text) {
+                JNES.udalosti.vypis({text: text, class: 'log'});
+            }
+        });
+
+
         Object.defineProperty(utils, 'createCanvas', {enumerable: true, value:
             function(opts, main_camera_definition){
                 var canvas = {};
@@ -84,17 +91,17 @@ Object.defineProperty(JNES, 'utils', {enumerable: true, value:
 
 //    Object.defineProperty(utils, 'game_name', {value: null, writable: true});
 
-        Object.defineProperty(utils, 'setMouseRaycaster', {enumerable: true, value:
-            function (raycaster, canvas, camera, mouse_event) {
-                var x, y;
-                x = mouse_event.clientX - canvas.container.offsetLeft;
-                y = mouse_event.clientY - canvas.container.offsetTop;
-                x = 2 * (x / canvas.width) - 1;
-                y = -2 * (y / canvas.height) + 1;
-                raycaster.setFromCamera(new THREE.Vector2(x, y), camera);
-                return raycaster;
-            }
-        });
+//        Object.defineProperty(utils, 'setMouseRaycaster', {enumerable: true, value:
+//            function (raycaster, canvas, camera, mouse_event) {
+//                var x, y;
+//                x = mouse_event.clientX - canvas.container.offsetLeft;
+//                y = mouse_event.clientY - canvas.container.offsetTop;
+//                x = 2 * (x / canvas.width) - 1;
+//                y = -2 * (y / canvas.height) + 1;
+//                raycaster.setFromCamera(new THREE.Vector2(x, y), camera);
+//                return raycaster;
+//            }
+//        });
 
 //    Object.defineProperty(utils, 'gameAssetUrl', {
 //        value: function (name) {

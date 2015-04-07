@@ -22,7 +22,13 @@ body {
   margin-left: $menu-width;
   margin-right: $udalosti-width;
   padding: 3em;
-  position: relative;
+  #loading_game {
+    background-color: $white-smoke;
+    border: 2px outset $base;
+    padding: rem-calc(30);
+    text-align: center;
+  }
+
 }
 
 #udalosti {

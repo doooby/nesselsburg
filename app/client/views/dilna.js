@@ -11,6 +11,7 @@ JNES.views.Dilna = Backbone.View.extend({
         this.$el.html(this.template());
     },
     nactiHru: function (id) {
+        this.$el.html('<div id="loading_game">Stahuji script hry ...</div>');
         var _this = this;
         $.getScript('/assets/'+id+'/main.js', function () {
             JNES.trigger('get_game', function (hra) {

@@ -19,18 +19,17 @@ GAME_DATA.stone_size = GAME_DATA.position_size / 3;
 /// GAME
 var GAME = {
   id: 'kerkel',
-  views: {},
   templates: <%= JSON.generate Nesselsburg::GamesAssets.templates_hash(__FILE__) %>,
   shaders: <%= JSON.generate Nesselsburg::GamesAssets.shaders_hash(__FILE__) %>,
+  current_game: null,
 
   attachGame: function (jqel, utils) {
-    jqel.html('<div id="game_container" style="width: 400px; height: 400px;"></div>');
-    GAME.view = new GAME_VIEW();
+    jqel.html(Handlebars.compile(GAME.templates['main'])());
     GAME.utils = utils;
 
     //plátno
     GAME.canvas = GAME.utils.createCanvas({
-//              clear_color: 0xffffff
+              clear_color: 0xffffff
             },
             function () {
               var camera, height, width;
@@ -45,15 +44,37 @@ var GAME = {
               return camera;
             }
     );
-    //////////////// inicializace //////////////////
-//    J3O.structs.load(app_options);
-//    J3O.Board.createBoard();
 
-//        var game = J3O.Game.createGameplay();
-//        J3O.Game.prepareGameplay(game);
+//    GAME.canvas.redraw();
+    GAME.utils.log('KERKEL připojen.');
+    var loading_manager = GAME.utils.createLoadingManager(GAME.start);
+    GAME.addStruct.load(loading_manager);
+    loading_manager.start();
+  },
 
+  addStruct: (function() {
+    var structs = {};
+    function loader(name, loader) { structs[name] = loader; }
+
+    loader.load = function (loading_manager) {
+      _.each(_.keys(structs), function (struct_name) {
+        GAME[struct_name] = structs[struct_name](loading_manager);
+      });
+      structs = {};
+    };
+    return loader;
+  }()),
+
+  start: function () {
+    GAME.utils.log('KERKEL grafika načtená, spouštím...');
+    GAME.Board.prepare();
     GAME.canvas.redraw();
 
+    var player_local = {id: 'modrák', local: true};
+    var player2 = {id: 'oranžák', local: false};
+    GAME.current_game = GAME.Game.create(player_local, player2);
   }
+
+
 };
 
