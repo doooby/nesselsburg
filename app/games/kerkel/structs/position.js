@@ -25,7 +25,14 @@ GAME.addStruct('Position', function () {
                 emplaceStones: function () {
                     this.stones.forEach(function (stone) { stone.__.moveTo(mesh); });
                     if (this.stones.length > 1) {
-
+                        var r = GAME_DATA.position_size * 0.4;
+                        var angle_step = Math.PI*2 / this.stones.length;
+                        var angle_start = Math.PI*2 * Math.random();
+                        this.stones.forEach(function (stone, index) {
+                            stone.position.x = stone.position.x + r * Math.cos(angle_start + angle_step*index);
+                            stone.position.y = stone.position.y + r * Math.sin(angle_start + angle_step*index);
+                            stone.updateMatrix();
+                        });
                     }
                 }
             };

@@ -25,7 +25,8 @@ var GAME = {
 
   attachGame: function (jqel, utils) {
     jqel.html(Handlebars.compile(GAME.templates['main'])());
-    GAME.utils = utils;
+    jqel.find('#btn_menu').on('click', GAME_UI.toggle_menu);
+    GAME.utils = utils;  //fdsa
 
     //plátno
     GAME.canvas = GAME.utils.createCanvas({
@@ -69,10 +70,6 @@ var GAME = {
     GAME.utils.log('KERKEL grafika načtená, spouštím...');
     GAME.Board.prepare();
     GAME.canvas.redraw();
-
-    var player_local = {id: 'modrák', local: true};
-    var player2 = {id: 'oranžák', local: false};
-    GAME.current_game = GAME.Game.create(player_local, player2);
   }
 
 

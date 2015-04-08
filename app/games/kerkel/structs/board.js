@@ -127,6 +127,37 @@ GAME.addStruct('Board', function () {
             }
 
             return steps;
+        },
+
+        getPositionsOfPlayer: function (player) {
+            return _.filter(this.positions, function (p) {
+                var stone = p.__.stones[0];
+                return stone && stone.__.player==player;
+            });
+        },
+
+        winningPositionForSide: function (side) {
+            switch (side) {
+                case 0:
+                    return [
+                        this.positions[1],
+                        this.positions[3],
+                        this.positions[6],
+                        this.positions[7],
+                        this.positions[8]
+                    ];
+                    break;
+                case 1:
+                    return [
+                        this.positions[16],
+                        this.positions[17],
+                        this.positions[18],
+                        this.positions[21],
+                        this.positions[23]
+                    ];
+                    break;
+                default: return [];
+            }
         }
 
     };
@@ -212,8 +243,9 @@ GAME.addStruct('Board', function () {
         }
 
         if (struct.down_hit && valid_move) {
-            GAME.utils.log('krok z='+struct.down_hit.__.index+' na='+struct.up_hit.__.index);
-            struct.moveOneStone(struct.down_hit, struct.up_hit);
+            if (GAME.current_game) {
+                GAME.current_game.turn(struct.down_hit, struct.up_hit);
+            }
         }
 
     }
