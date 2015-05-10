@@ -4,7 +4,7 @@ require File.expand_path('../boot', __FILE__)
 require "active_model/railtie"
 require "active_record/railtie"
 require "action_controller/railtie"
-require "action_mailer/railtie"
+# require "action_mailer/railtie"
 require "action_view/railtie"
 require "sprockets/railtie"
 # require "rails/test_unit/railtie"
@@ -35,7 +35,7 @@ module Nesselsburg
 
     config.autoload_paths << Rails.root.join('lib', 'nesselsburg')
 
-    config.middleware.use 'S3ocketServerApp'
+    config.middleware.use 'SocketServer::Middleware'
 
   end
 end

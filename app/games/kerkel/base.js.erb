@@ -1,0 +1,77 @@
+'use strict';
+<% require Rails.root.join('app', 'assets', 'games_assets.rb') %>
+
+/// GAME DATA
+var GAME_DATA = {};
+GAME_DATA.sirka_zaberu = null;
+GAME_DATA.vyska_zaberu = 700;
+
+GAME_DATA.position_size = 60;
+GAME_DATA.position_indentation = 25;
+GAME_DATA.position_total_size = GAME_DATA.position_size + 2*GAME_DATA.position_indentation;
+
+var board_position = 0.5*GAME_DATA.vyska_zaberu - 2.5*GAME_DATA.position_total_size;
+GAME_DATA.board_top_left = new THREE.Vector3(board_position, board_position, 0);
+
+GAME_DATA.stone_size = GAME_DATA.position_size / 3;
+
+
+/// GAME
+var GAME = {
+  id: 'kerkel',
+  templates: <%= JSON.generate Nesselsburg::GamesAssets.templates_hash(__FILE__) %>,
+  shaders: <%= JSON.generate Nesselsburg::GamesAssets.shaders_hash(__FILE__) %>,
+  current_game: null,
+
+  attachGame: function (jqel, utils) {
+    jqel.html(Handlebars.compile(GAME.templates['main'])());
+    jqel.find('#btn_menu').on('click', GAME_UI.toggle_menu);
+    GAME.utils = utils;  //fdsa
+
+    //plátno
+    GAME.canvas = GAME.utils.createCanvas({
+              clear_color: 0xffffff
+            },
+            function () {
+              var camera, height, width;
+              height = GAME_DATA.vyska_zaberu / 2;
+              width = (this.width / this.height) * height;
+              GAME_DATA.sirka_zaberu = width * 2;
+
+              camera = new THREE.OrthographicCamera(width, -width, height, -height, 0, 100);
+              camera.up = new THREE.Vector3(0, -1, 0);
+              camera.position.set(width, height, 50);
+              camera.lookAt(new THREE.Vector3(width, height, 0));
+              return camera;
+            }
+    );
+
+//    GAME.canvas.redraw();
+    GAME.utils.log('KERKEL připojen.');
+    var loading_manager = GAME.utils.createLoadingManager(GAME.start);
+    GAME.addStruct.load(loading_manager);
+    loading_manager.start();
+  },
+
+  addStruct: (function() {
+    var structs = {};
+    function loader(name, loader) { structs[name] = loader; }
+
+    loader.load = function (loading_manager) {
+      _.each(_.keys(structs), function (struct_name) {
+        GAME[struct_name] = structs[struct_name](loading_manager);
+      });
+      structs = {};
+    };
+    return loader;
+  }()),
+
+  start: function () {
+    GAME.utils.log('KERKEL grafika načtená, spouštím...');
+    GAME.Board.prepare();
+    GAME.canvas.redraw();
+  }
+
+
+};
+

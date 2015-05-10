@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Nesselsburg</title>
+  <%= stylesheet_link_tag 'hrad' %>
+  <%= javascript_include_tag 'hrad' %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<div id="menu_bar">
+  <div id="menu"></div>
+  <%= link_to 'odhlásit se', logout_path, method: :delete %>
+  <br/>
+  <%= link_to 'odejít', brana_path %>
+</div>
+<div id="container"></div>
+<div id="udalosti"></div>
+
+<%= templates_bundle '/' %>
+
+</body>
+</html>
