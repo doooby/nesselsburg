@@ -211,7 +211,7 @@ GAME.addStruct('Board', function () {
 
     function mouse_down(e) {
         var player, hit_stone;
-        e.preventDefault();
+//        e.preventDefault();
 
         player = GAME.current_game && GAME.current_game.on_turn;
         if (!player || !player.local) return;
@@ -230,7 +230,7 @@ GAME.addStruct('Board', function () {
 
     function mouse_up (e) {
         var valid_move;
-        e.preventDefault();
+//        e.preventDefault();
 
         if (struct.possible_steps.length>0) {
             struct.up_hit = get_mouse_hit(e);

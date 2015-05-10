@@ -8,8 +8,39 @@ GAME.addStruct('Player', function () {
     };
 
     var general_plugin = {
-        yourTurn: function () {
-               console.log('jede generál.');
+        begginGame: function (game, clbk) {
+            var self = this;
+            this.dispatch('POST', '', JSON.stringify({game_id: 'test_game'}), clbk,
+                function () {
+                    GAME.utils.log('Generál '+self.id+' odmítl začít novou bitvu');
+                }
+            );
+        },
+        endGame: function (game, winner) {
+            var event = 'lost';
+            if (winner===this) event = 'win';
+            this.dispatch('POST', '/test_game/'+event, '{}');
+        },
+        yourTurn: function (last_move, as_player) {
+            this.dispatch('GET', '/test_game',
+                {on_turn: as_player, last_move: last_move},
+                function (data) {
+                    GAME.current_game.turn(
+                        GAME.Board.positions[data.from],
+                        GAME.Board.positions[data.to]
+                    );
+                }
+            );
+        },
+        dispatch : function (type, path, data, success, fail) {
+            $.ajax({
+                type: type,
+                url: 'http://'+this.url+'/kerkel'+path,
+                contentType: "application/json",
+                data: data,
+                success: success,
+                error: function (e) { console.log(e.responseJSON); fail && fail(); }
+            });
         }
     };
 

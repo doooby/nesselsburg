@@ -38,12 +38,31 @@ GAME.addStruct('Game', function () {
 
             // další tah
             this.on_turn = next_plays;
-            if (this.on_turn.yourTurn) this.on_turn.yourTurn();
+            if (this.on_turn.yourTurn) this.on_turn.yourTurn(
+                {from: from.__.index, to: to.__.index}, side+1
+            );
+        },
+
+        start_game: function (on_start) {
+            var self = this;
+            var poradi = -1;
+            function wait_for_player() {
+                poradi += 1;
+                if (poradi===2) { on_start(); }
+                else {
+                    var p = self.players[poradi];
+                    if (typeof p.begginGame==='function') p.begginGame(self, wait_for_player);
+                    else wait_for_player();
+                }
+            }
+            wait_for_player();
         },
 
         end_game: function (winner) {
             GAME.current_game = null;
             GAME.utils.log('Vyhrává hráč '+winner.id);
+            if (typeof this.players[0].endGame==='function') { this.players[0].endGame(this, winner); }
+            if (typeof this.players[1].endGame==='function') { this.players[1].endGame(this, winner); }
         }
     };
 
