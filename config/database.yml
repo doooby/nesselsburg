@@ -8,6 +8,7 @@ default: &def
   adapter: postgresql
   encoding: utf8
   database: nesselsburg
+  pool: 10
 
 development:
   <<: *def
