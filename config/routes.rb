@@ -5,10 +5,10 @@ Rails.application.routes.draw do
     get 'vyveska' => 'predhradi#vyveska', as: 'vyveska'
     get 'zed' => 'predhradi#zed', as: 'zed'
 
-    get 'hrad' => 'hrad#hrad'
-    namespace :hrad do
-      # get :nadvori
-    end
+    # get 'hrad' => 'hrad#hrad'
+    # namespace :hrad do
+    #   get :nadvori
+    # end
 
     # namespace :dilna do
     #   get 'tabule'
