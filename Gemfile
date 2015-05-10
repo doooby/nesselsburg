@@ -4,12 +4,12 @@ source 'https://rubygems.org'
 gem 'rails', '~> 4.1'
 
 gem 'pg'
-gem 'mongoid'
+# gem 'mongoid'
 
 gem 'puma'
 gem 'devise'
 gem 'foundation-rails'
-gem 'active_model_serializers'
+# gem 'active_model_serializers'
 gem 'faye-websocket'
 
 gem 'jquery-rails'

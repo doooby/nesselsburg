@@ -9,4 +9,4 @@
 //= require backbone
 //= require handlebars
 //
-//= require ../../client/app_main.js
+//= require app_main
